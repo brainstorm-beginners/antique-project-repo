@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Marck+Script&family=Rampart+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+body {
+  margin: 0 !important;
+  padding: 0;
+}
+
+header {
+  width: auto;
+  background-color: #ffbf00;
+}
+header .topHeaderBlock {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+header .topHeaderBlock h1 {
+  width: -moz-max-content;
+  width: max-content;
+  font-family: "Great Vibes", cursive;
+  margin-left: auto;
+  margin-right: auto;
+}
+header .topHeaderBlock .workScheduleBlock {
+  width: -moz-max-content;
+  width: max-content;
+  height: -moz-max-content;
+  height: max-content;
+  right: 50px;
+  position: absolute;
+}
+header .topHeaderBlock .workScheduleBlock h4 {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+}
+header .topHeaderBlock .workScheduleBlock p {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+}/*# sourceMappingURL=mainPage.css.map */

@@ -1,0 +1,41 @@
+@import 'variables';
+
+body {
+    margin: 0 !important;
+    padding: 0;
+}
+
+header {
+    width: auto;
+    background-color: $yantar-color;
+
+    .topHeaderBlock {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+
+        h1 {
+            width: max-content;
+            font-family: $primary-font;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    
+        .workScheduleBlock {
+            width: max-content;
+            height: max-content;
+            right: 50px;
+            position: absolute;
+
+            h4 {
+                font-family: $secondary-font;
+                margin: 0;
+            }
+
+            p {
+                font-family: $secondary-font;
+                margin: 0;
+            }
+        }
+    }
+}
