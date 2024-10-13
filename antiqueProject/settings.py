@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
-from antiqueProject.config import config
+from antiqueProject.config import project_config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config.django_secret_key
+SECRET_KEY = project_config.django_secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,12 +78,12 @@ WSGI_APPLICATION = 'antiqueProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.' + config.get_database_driver,
-        'NAME': config.get_postgres_database,
-        'USER': config.get_postgres_user,
-        'PASSWORD': config.get_postgres_password,
-        'HOST': config.get_postgres_host,
-        'PORT': config.get_postgres_port,
+        'ENGINE': 'django.db.backends.' + project_config.get_database_driver,
+        'NAME': project_config.get_postgres_database,
+        'USER': project_config.get_postgres_user,
+        'PASSWORD': project_config.get_postgres_password,
+        'HOST': project_config.get_postgres_host,
+        'PORT': project_config.get_postgres_port,
     }
 }
 
@@ -121,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'C:/Users/User/PycharmProjects/antiqueProject/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

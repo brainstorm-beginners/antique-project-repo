@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-class Config:
+class ProjectConfig:
     _db_driver: str = os.getenv("DB_DRIVER")
     _postgres_user: str = os.getenv("POSTGRES_USER")
     _postgres_password: str = os.getenv("POSTGRES_PASSWORD")
@@ -74,4 +74,4 @@ class Config:
         env_file = "C:/Users/User/PycharmProjects/antiqueProject/.env"
 
 
-config = Config()
+project_config = ProjectConfig()
