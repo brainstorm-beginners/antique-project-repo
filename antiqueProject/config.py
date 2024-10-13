@@ -11,6 +11,7 @@ class Config:
     _postgres_database: str = os.getenv("POSTGRES_DATABASE")
     _postgres_host: str = os.getenv("POSTGRES_HOST")
     _postgres_port: int = int(os.getenv("POSTGRES_PORT", 5432))
+    _django_secret_key: str = os.getenv("DJANGO_SECRET_KEY")
 
     @property
     def database_driver(self) -> str:
@@ -59,6 +60,14 @@ class Config:
     @postgres_port.getter
     def get_postgres_port(self) -> int:
         return self._postgres_port
+
+    @property
+    def django_secret_key(self) -> str:
+        return self._django_secret_key
+
+    @django_secret_key.getter
+    def get_django_secret_key(self) -> str:
+        return self._django_secret_key
 
 
     class Config:
