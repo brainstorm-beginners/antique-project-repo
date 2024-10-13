@@ -13,26 +13,68 @@ header {
         display: flex;
         align-items: center;
         padding: 10px 20px;
+        justify-content: space-between;
+        flex-wrap: wrap;
 
         h1 {
             width: max-content;
             font-family: $primary-font;
-            margin-left: auto;
-            margin-right: auto;
+            user-select: none;
+        }
+
+        form {
+            max-height: 40px;
+            display: flex;
+
+            .searchBar {
+                padding: 5px;
+                border-radius: 5px;
+            }
+
+            .searchIcon {
+                max-height: 35px;
+                max-width: 35px;
+                margin-left: 5px;
+                transition: all 0.4s ease-in-out;
+                user-select: none;
+
+                &:hover {
+                    cursor: pointer;
+                    animation: wobble 1s infinite;
+                    animation-fill-mode: both;
+                }
+
+                @keyframes wobble {
+                    0% {
+                      transform: rotate(0deg);
+                    }
+                    15% {
+                      transform: rotate(-15deg);
+                    }
+                    30% {
+                      transform: rotate(15deg);
+                    }
+                    50% {
+                      transform: rotate(-10deg);
+                    }
+                    65% {
+                      transform: rotate(10deg);
+                    }
+                    85% {
+                      transform: rotate(-5deg);
+                    }
+                    100% {
+                      transform: rotate(0deg);
+                    }
+                }
+            }
         }
     
         .workScheduleBlock {
             width: max-content;
             height: max-content;
-            right: 50px;
-            position: absolute;
 
-            h4 {
-                font-family: $secondary-font;
-                margin: 0;
-            }
-
-            p {
+            h4, p {
                 font-family: $secondary-font;
                 margin: 0;
             }
