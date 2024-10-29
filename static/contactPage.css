@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Marck+Script&family=Rampart+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+main {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+main .topMainUrl {
+  margin-top: 2em;
+  margin-left: 4em;
+}
+main .contactBox {
+  margin-top: 1.5em;
+  margin-left: 4em;
+  display: flex;
+  flex-direction: row;
+}
+main .contactMap {
+  width: 31.25em;
+  height: 25em;
+}
+main #map {
+  width: 100%;
+  height: 100%;
+}
+main .contactInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 6em;
+}
+main h1 {
+  margin-top: 0em;
+}
+main .contactNum {
+  font-weight: 600;
+}
+main .contactScheduleText {
+  margin-top: 1em;
+}
+main .contactSchedule {
+  margin-top: 0.5em;
+}
+main .contactaddress {
+  margin-top: 2em;
+}
+@media (max-width: 768px) {
+  main .topMainUrl {
+    margin-left: 1em;
+  }
+  main .contactBox {
+    margin-left: 1em;
+    flex-direction: column;
+    align-items: center;
+  }
+  main .contactMap {
+    margin-top: 2em;
+  }
+  main .contactInfo {
+    margin: 0;
+    order: -1;
+  }
+  main h1 {
+    font-size: 1.5em;
+  }
+}/*# sourceMappingURL=contactPage.css.map */
