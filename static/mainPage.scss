@@ -108,7 +108,6 @@ header {
     }
 
     .mobileMenu {
-      display: none;
       background-color: $dark-grey-color;
       padding: 20px;
       margin-left: 0;
@@ -184,6 +183,12 @@ header {
           }
         }
       }
+    }
+
+    @media only screen and (min-width: 800px) {
+      .mobileMenu {
+        display: none !important;
+      } 
     }
      
     @media only screen and (max-width: 800px) {

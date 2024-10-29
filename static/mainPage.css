@@ -100,7 +100,6 @@ header .topHeaderBlock .mobileMenuButton:hover {
   cursor: pointer;
 }
 header .mobileMenu {
-  display: none;
   background-color: #2e2e2e;
   padding: 20px;
   margin-left: 0;
@@ -171,6 +170,11 @@ header .mobileMenu .mobileMenuList .searchForm .searchButton:hover {
 header .mobileMenu .mobileMenuList .searchForm .searchButton .searchIcon {
   width: 16px;
   height: 16px;
+}
+@media only screen and (min-width: 800px) {
+  header .mobileMenu {
+    display: none !important;
+  }
 }
 @media only screen and (max-width: 800px) {
   header .mobileMenuButton {
