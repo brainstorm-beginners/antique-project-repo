@@ -1,0 +1,149 @@
+@import 'variables';
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+main {
+    margin-top: 2vw;
+    margin-left: 5vw;
+    width: auto;
+
+    .topMainUrl {
+        display: flex;
+        padding: 20px 0 0 0;
+        font-family: $secondary-font;
+        align-items: center;
+    }
+
+    .wrapperContainer {
+        padding: 0 0 0 40px; 
+    }
+
+    .productTitle {
+        padding-top: 1.5vw;
+        display: flex;
+        width: 100%;
+    }
+
+    .productImage {
+        width: 25%;
+    }
+
+    .productImage img {
+        height: auto;
+        width: 100%;
+    }
+
+    .productInfo {
+        margin-top: 2vw;
+        margin-left: 4vw;
+        display: flex;
+        flex-direction: column;
+        font-family: $secondary-font;
+
+    }
+    
+    .price {
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+    }
+
+    .name {
+        font-size: 1.5vw;
+    }
+
+    .productDescription {
+        margin-top: 1vw;
+        font-size: 1.1vw;
+        font-weight: 400;
+    }
+
+    .shareSection {
+        margin-top: 5vw;
+    }
+
+    .shareText {
+        font-size: 1vw;
+    }
+
+    .shareIcons {
+        display: flex;
+        gap: 0.3vw;
+        margin-top: 0.5vw;
+    }
+
+    .shareIcon img {
+        width: 2.5vw;
+        height: 2.5vw;
+    }
+
+    .copyButton {
+        font-family: $secondary-font;
+        border-radius: 1vw;
+        cursor: pointer;
+    }
+
+    .orderBox {
+        margin-top: 1.5vw;
+    }
+    
+    .orderButton {
+        width: 15vw;
+        height: 3vw;
+        background-color: black;
+        color: #FFD700;
+        font-family: $secondary-font;
+        border-radius: 0.5vw;
+        box-shadow: none;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: color 0.5s ease;
+    }
+
+    .orderButton:hover {
+        color: white;
+    }
+
+}
+
+footer {
+    margin-top: 5vw;
+    width: 100%;
+    height: 10vw;
+    background-color: #FFD700;
+    font-family: $secondary-font;
+
+    .footerBox {
+        display: flex;
+    }
+
+    .footerInfo {
+        display: flex;
+        flex-direction: column;
+        margin-left: 5vw;
+    }
+
+    .footerNumber {
+        margin-top: 3vw;
+    }
+
+    .footerText {
+        margin-top: 1vw;
+    }
+
+    .footerMap {
+        width: 500px;
+        height: 400px;
+    }
+
+    #map {
+        width: 100%;
+        height: 400px;
+    }
+}
