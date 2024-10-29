@@ -7,7 +7,7 @@ body {
 
 header {
   width: auto;
-  background-color: #ffbf00;
+  background-color: #2e2e2e;
 }
 header .topHeaderBlock {
   display: flex;
@@ -16,66 +16,194 @@ header .topHeaderBlock {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-header .topHeaderBlock h1 {
+header .topHeaderBlock .shopTitle {
   width: -moz-max-content;
   width: max-content;
   font-family: "Great Vibes", cursive;
+  color: white;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
 }
-header .topHeaderBlock form {
-  max-height: 40px;
+header .topHeaderBlock .headerTopRight .headerTopMenu {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style: none;
+  gap: 15px;
 }
-header .topHeaderBlock form .searchBar {
-  padding: 5px;
-  border-radius: 5px;
-}
-header .topHeaderBlock form .searchIcon {
-  max-height: 35px;
-  max-width: 35px;
-  margin-left: 5px;
-  transition: all 0.4s ease-in-out;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-}
-header .topHeaderBlock form .searchIcon:hover {
-  cursor: pointer;
-  animation: wobble 1s infinite;
-  animation-fill-mode: both;
-}
-@keyframes wobble {
-  0% {
-    transform: rotate(0deg);
-  }
-  15% {
-    transform: rotate(-15deg);
-  }
-  30% {
-    transform: rotate(15deg);
-  }
-  50% {
-    transform: rotate(-10deg);
-  }
-  65% {
-    transform: rotate(10deg);
-  }
-  85% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-header .topHeaderBlock .workScheduleBlock {
-  width: -moz-max-content;
-  width: max-content;
+header .topHeaderBlock .headerTopRight .headerTopMenu .headerTopMenuElement {
   height: -moz-max-content;
   height: max-content;
-}
-header .topHeaderBlock .workScheduleBlock h4, header .topHeaderBlock .workScheduleBlock p {
   font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #b3b3b3;
+  transition: 0.2s ease-in-out;
+}
+header .topHeaderBlock .headerTopRight .headerTopMenu .headerTopMenuElement:hover {
+  color: #ffbf00;
+  cursor: pointer;
+}
+header .topHeaderBlock .headerTopRight .headerTopMenu .searchForm {
+  max-height: 40px;
+  display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  background-color: #2e2e2e;
+  border: 1px solid #b3b3b3;
+  border-radius: 30px;
+  color: #b3b3b3;
+  padding-right: 1px;
+}
+header .topHeaderBlock .headerTopRight .headerTopMenu .searchForm .searchBar {
+  background: transparent;
+  border: none;
+  color: #b3b3b3;
+  padding: 10px 15px;
+  outline: none;
+  font-size: 16px;
+  width: 200px;
+}
+header .topHeaderBlock .headerTopRight .headerTopMenu .searchForm .searchBar::-moz-placeholder {
+  color: #7a7a7a;
+}
+header .topHeaderBlock .headerTopRight .headerTopMenu .searchForm .searchBar::placeholder {
+  color: #7a7a7a;
+}
+header .topHeaderBlock .headerTopRight .headerTopMenu .searchForm .searchButton {
+  background-color: #ffc600;
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+header .topHeaderBlock .headerTopRight .headerTopMenu .searchForm .searchButton:hover {
+  background-color: #e0b300;
+}
+header .topHeaderBlock .headerTopRight .headerTopMenu .searchForm .searchButton .searchIcon {
+  width: 16px;
+  height: 16px;
+}
+header .topHeaderBlock .mobileMenuButton {
+  display: none;
+  background-color: transparent;
+  border: none;
+}
+header .topHeaderBlock .mobileMenuButton:hover {
+  cursor: pointer;
+}
+header .mobileMenu {
+  display: none;
+  background-color: #2e2e2e;
+  padding: 20px;
+  margin-left: 0;
+}
+header .mobileMenu .mobileMenuList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  gap: 15px;
+  padding: 0;
+}
+header .mobileMenu .mobileMenuList .mobileMenuElement {
+  height: -moz-max-content;
+  height: max-content;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #b3b3b3;
+  transition: 0.2s ease-in-out;
+}
+header .mobileMenu .mobileMenuList .mobileMenuElement:hover {
+  color: #ffbf00;
+  cursor: pointer;
+}
+header .mobileMenu .mobileMenuList .searchForm {
+  max-height: 40px;
+  display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  background-color: #2e2e2e;
+  border: 1px solid #b3b3b3;
+  border-radius: 30px;
+  color: #b3b3b3;
+  padding-right: 1px;
+}
+header .mobileMenu .mobileMenuList .searchForm .searchBar {
+  background: transparent;
+  border: none;
+  color: #b3b3b3;
+  padding: 10px 15px;
+  outline: none;
+  font-size: 16px;
+  width: 200px;
+}
+header .mobileMenu .mobileMenuList .searchForm .searchBar::-moz-placeholder {
+  color: #7a7a7a;
+}
+header .mobileMenu .mobileMenuList .searchForm .searchBar::placeholder {
+  color: #7a7a7a;
+}
+header .mobileMenu .mobileMenuList .searchForm .searchButton {
+  background-color: #ffc600;
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+header .mobileMenu .mobileMenuList .searchForm .searchButton:hover {
+  background-color: #e0b300;
+}
+header .mobileMenu .mobileMenuList .searchForm .searchButton .searchIcon {
+  width: 16px;
+  height: 16px;
+}
+@media only screen and (max-width: 800px) {
+  header .mobileMenuButton {
+    display: block !important;
+  }
+  header .headerTopRight {
+    display: none;
+  }
+}
+header .categoriesBlock {
+  padding: 20px 10px 10px 10px;
+}
+header .categoriesBlock .categoriesList {
+  width: 100%;
+  display: flex;
   margin: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  list-style: none;
+  padding: 0 0 20px 0;
+  font-weight: 500;
+  gap: 20px;
+  scrollbar-width: thin !important;
+  scrollbar-color: #b3b3b3 transparent;
+}
+header .categoriesBlock .categoriesList .category {
+  font-family: "Montserrat", sans-serif;
+  color: #b3b3b3;
+  transition: 0.2s ease-in-out;
+}
+header .categoriesBlock .categoriesList .category:hover {
+  cursor: pointer;
+  color: #ffbf00;
 }/*# sourceMappingURL=mainPage.css.map */
