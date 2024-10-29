@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Антикварная лавка</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'productPage.css' %}">
+        <script src="/static/productPage.js"></script>
+        <script src="https://api-maps.yandex.ru/v3/?apikey=e55d1c66-9ad0-45b1-9194-dac6a953d918&lang=ru_RU"></script>
+    </head>
+<body>
+    <main>
+        <div class="wrapperContainer">
+            <div class="topMainUrl">
+                <span class="topMainText">Главная / Каталог / {{ product.category.name }} / {{ product.name }}</span>
+            </div>
+            <div class="productTitle">
+                <div class="productImage">
+                    <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}">
+                </div>
+                <div class="productInfo">
+                    <div class="productPrice">
+                        <h2 class="price">{{ product.price }} ТГ</h2>
+                    </div>
+                    <div class="productName">
+                        <h1 class="name">{{ product.name }}</h1>
+                    </div>
+                    <div class="productDescription">
+                        <span class="description">{{ product.description }}</span>
+                    </div>
+                    <div class="shareSection">
+                        <span class="shareText">Поделиться ссылкой на товар:</span>
+                        <div class="shareIcons">
+                            <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}" target="_blank" class="shareIcon telegram" aria-label="Telegram">
+                                <img src="{% static 'icons/icons8-telegram-app.svg' %}" alt="Telegram">
+                            </a>
+                            <a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank" class="shareIcon whatsapp" aria-label="WhatsApp">
+                                <img src="{% static 'icons/icons8-whatsapp.svg' %}" alt="WhatsApp">
+                            </a>
+                            <a href="https://vk.com/share.php?url={{ request.build_absolute_uri }}" target="_blank" class="shareIcon vk" aria-label="Vk">
+                                <img src="{% static 'icons/icons8-vk.svg' %}" alt="Vk">
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?text={{ request.build_absolute_uri }}" target="_blank" class="shareIcon X" aria-label="X">
+                                <img src="{% static 'icons/icons8-x.svg' %}" alt="X">
+                            </a>
+                            <button id="copyButton" class="copyButton">Скопировать ссылку</button>
+                        </div>
+                    </div>
+                    <div class="orderBox">
+                        <a href="https://api.whatsapp.com/send?phone=77024444999" target="_blank">
+                            <button class="orderButton">Сделать заказ по WhatsApp</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footerBox">
+            <div class="footerInfo">
+                <span class="footerNumber">+7 702 444 4999</span>
+                <a href="https://2gis.kz/almaty/geo/9430047375043681/76.982054%2C43.334925" class="footerText">Улица Монтажная, 27</a>
+            </div>
+            <div class="footerMap">
+                <div id="map"></div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
