@@ -7,7 +7,7 @@ body {
 
 header {
     width: auto;
-    background-color: $yantar-color;
+    background-color: $dark-grey-color;
 
     .topHeaderBlock {
         display: flex;
@@ -16,68 +16,214 @@ header {
         justify-content: space-between;
         flex-wrap: wrap;
 
-        h1 {
+        .shopTitle {
             width: max-content;
             font-family: $primary-font;
+            color: white;
             user-select: none;
         }
 
-        form {
-            max-height: 40px;
+        .headerTopRight {
+          .headerTopMenu {
             display: flex;
+            flex-direction: row;
+            align-items: center;
+            list-style: none;
+            gap: 15px;
 
-            .searchBar {
-                padding: 5px;
-                border-radius: 5px;
+            .headerTopMenuElement {
+              height: max-content;
+              font-family: $secondary-font;
+              font-weight: 500;
+              color: $light-grey-color;
+              transition: 0.2s ease-in-out;
+
+              &:hover {
+                color: $yantar-color;
+                cursor: pointer;
+              }
             }
 
-            .searchIcon {
-                max-height: 35px;
-                max-width: 35px;
-                margin-left: 5px;
-                transition: all 0.4s ease-in-out;
-                user-select: none;
-
+            .searchForm {
+              max-height: 40px;
+              display: flex;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              align-items: center;
+              background-color: $dark-grey-color;
+              border: 1px solid $light-grey-color;
+              border-radius: 30px;
+              color: $light-grey-color;
+              padding-right: 1px;
+                
+              .searchBar {
+                background: transparent;
+                border: none;
+                color: $light-grey-color;
+                padding: 10px 15px;
+                outline: none;
+                font-size: 16px;
+                width: 200px;
+                      
+                &::placeholder {
+                  color: #7a7a7a;
+                }
+              }
+                
+              .searchButton {
+                background-color: #ffc600;
+                border: none;
+                border-radius: 20px;
+                padding: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                
                 &:hover {
-                    cursor: pointer;
-                    animation: wobble 1s infinite;
-                    animation-fill-mode: both;
+                  background-color: #e0b300;
                 }
-
-                @keyframes wobble {
-                    0% {
-                      transform: rotate(0deg);
-                    }
-                    15% {
-                      transform: rotate(-15deg);
-                    }
-                    30% {
-                      transform: rotate(15deg);
-                    }
-                    50% {
-                      transform: rotate(-10deg);
-                    }
-                    65% {
-                      transform: rotate(10deg);
-                    }
-                    85% {
-                      transform: rotate(-5deg);
-                    }
-                    100% {
-                      transform: rotate(0deg);
-                    }
+                
+                .searchIcon {
+                  width: 16px;
+                  height: 16px;
                 }
+              }
             }
+          }
         }
-    
-        .workScheduleBlock {
-            width: max-content;
-            height: max-content;
 
-            h4, p {
-                font-family: $secondary-font;
-                margin: 0;
-            }
+        .mobileMenuButton {
+          display: none;
+          background-color: transparent;
+          border: none;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }        
+    }
+
+    .mobileMenu {
+      display: none;
+      background-color: $dark-grey-color;
+      padding: 20px;
+      margin-left: 0;
+
+      .mobileMenuList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        list-style: none;
+        gap: 15px;
+        padding: 0;
+
+        .mobileMenuElement {
+          height: max-content;
+          font-family: $secondary-font;
+          font-weight: 500;
+          color: $light-grey-color;
+          transition: 0.2s ease-in-out;
+
+          &:hover {
+            color: $yantar-color;
+            cursor: pointer;
+          }
         }
+
+        .searchForm {
+          max-height: 40px;
+          display: flex;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          align-items: center;
+          background-color: $dark-grey-color;
+          border: 1px solid $light-grey-color;
+          border-radius: 30px;
+          color: $light-grey-color;
+          padding-right: 1px;
+            
+          .searchBar {
+            background: transparent;
+            border: none;
+            color: $light-grey-color;
+            padding: 10px 15px;
+            outline: none;
+            font-size: 16px;
+            width: 200px;
+                  
+            &::placeholder {
+              color: #7a7a7a;
+            }
+          }
+            
+          .searchButton {
+            background-color: #ffc600;
+            border: none;
+            border-radius: 20px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            
+            &:hover {
+              background-color: #e0b300;
+            }
+            
+            .searchIcon {
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+      }
+    }
+     
+    @media only screen and (max-width: 800px) {
+      .mobileMenuButton {
+        display: block !important;
+      } 
+
+      .headerTopRight {
+        display: none;
+      }
+    }
+
+    .categoriesBlock {
+      padding: 20px 10px 10px 10px;
+
+      .categoriesList {
+        width: 100%;
+        display: flex;
+        margin: 0;
+        overflow-x: auto; 
+        overflow-y: hidden;
+        white-space: nowrap;
+        scroll-behavior: smooth;
+        list-style: none;
+        padding: 0 0 20px 0;
+        font-weight: 500;
+        gap: 20px;
+        scrollbar-width: thin !important;
+        scrollbar-color: $light-grey-color transparent;
+
+        .category {
+          font-family: $secondary-font;
+          color: $light-grey-color;
+          transition: 0.2s ease-in-out;
+
+          &:hover {
+            cursor: pointer;
+            color: $yantar-color;
+          }
+        }
+      }
     }
 }
