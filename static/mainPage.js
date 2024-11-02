@@ -74,6 +74,46 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  const mobileDropdownCategories = document.querySelectorAll(".mobileCategory__dropdown");
+  const mobileCategories = document.querySelectorAll(".mobileCategory, .mobileSubcategory, .mobileCategory__dropdown");
+
+  // Открытие и закрытие подкатегорий на мобильном разрешении при клике
+  mobileDropdownCategories.forEach((mobileCategory) => {
+    mobileCategory.addEventListener("click", function (event) {
+      event.stopPropagation(); // Останавливаем всплытие события
+      const mobileSubcategoriesMenu = mobileCategory.querySelector(".mobileSubcategoriesMenu");
+
+      if (mobileSubcategoriesMenu.style.display === "flex") {
+        document.querySelectorAll(".mobileSubcategoriesMenu").forEach((menu) => {
+          menu.style.display = "none";
+          menu.parentElement.classList.remove("open");
+        });
+      } else {
+        document.querySelectorAll(".mobileSubcategoriesMenu").forEach((menu) => {
+          menu.style.display = "flex";
+          menu.parentElement.classList.add("open");
+        });
+      }
+    });
+  });
+
+  // Клик на обычную категорию или подкатегорию на мобильном разрешении для перехода по URL и выделения
+  mobileCategories.forEach((mobileCategory) => {
+    mobileCategory.addEventListener("click", function () {
+      // Проверяем, имеет ли категория подкатегории
+      if (!mobileCategory.classList.contains("mobileCategory__dropdown")) {
+        const mobileCategoryName = mobileCategory.textContent.trim();
+
+        // Сохраняем выбранную категорию
+        setSelectedCategory(mobileCategoryName);
+
+        // Переход на URL с категорией
+        const urlCategoryName = mobileCategoryName.toLowerCase().replace(" ", "_");
+        window.location.href = `/api/v1/${urlCategoryName}`;
+      }
+    });
+  });
+
   // Подсвечиваем выбранную категорию при загрузке страницы
-  highlightSelectedCategory();
+  // highlightSelectedCategory();
 });
