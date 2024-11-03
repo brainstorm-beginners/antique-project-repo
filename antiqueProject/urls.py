@@ -17,14 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path
-from catalog.views import product_page, main_page
+from catalog.views import product_page, main_page, products_page
 
 from antiqueProject import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', main_page, name='home'),
-    path('product/<slug:slug>/', product_page, name='product_page'),
+    path('product/<slug:product_slug>/', product_page, name='product_page'),
+    path('products/', products_page, name='products_page'),
 ]
 
 if settings.DEBUG:

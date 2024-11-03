@@ -12,3 +12,10 @@ def product_page(request: WSGIRequest, product_slug: str) -> render:
     product_url = get_object_or_404(Product, slug=product_slug)
 
     return render(request, 'productPage.html', {'product': product_url})
+
+
+def products_page(request: WSGIRequest) -> render:
+    categories = Category.objects.filter(parent__isnull=True).prefetch_related('subcategories')
+    products = Product.objects.all()
+
+    return render(request, 'productsPage.html', {'product': products, 'root_categories': categories})

@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,11 +8,83 @@
         <title>Антикварная лавка</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../static/css/productPage/productPage.css">
-        <script src="../static/js/productPage.js"></script>
-        <script src="https://api-maps.yandex.ru/v3/?apikey=e55d1c66-9ad0-45b1-9194-dac6a953d918&lang=ru_RU"></script>
+        <link rel="stylesheet" href="{% static 'css/productPage/productPage.css' %}">
+        <script type="text/javascript">
+            const closeMobileMenuIcon = "{% static 'icons/closeMobileMenuIcon.png' %}";
+            const openMobileMenuIcon = "{% static 'icons/menuIconLightGrey.png' %}";
+        </script>
+        <script src="{% static 'js/productPage.js' %}"></script>
     </head>
 <body>
+    <header>
+        <div class='topHeaderBlock'>
+            <h1 class='shopTitle'>Ретро-лавка</h1>
+            <nav class='headerTopRight'>
+                <ul class='headerTopMenu'>
+                    <li class='headerTopMenuElement' id='aboutShop'>
+                        О лавке
+                    </li>
+                    <li class='headerTopMenuElement' id='contacts'>
+                        Контакты
+                    </li>
+                    <li class='headerTopMenuElement' id='phoneNumber'>
+                        +7 (702) 444 49 99
+                    </li>
+                    <li class='headerTopMenuElement' id='search'>
+                        <search>
+                            <form class="searchForm" action="./search/">
+                                <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
+                                <button type="submit" class="searchButton">
+                                    <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
+                                </button>
+                            </form>
+                        </search>   
+                    </li>
+                </ul>
+            </nav>   
+            <button id="mobileMenuButton" class="mobileMenuButton">
+                <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" />
+            </button>
+        </div>
+        
+        <nav class='mobileMenu' style='display: none;'>
+            <ul class='mobileMenuList'>
+                <li class='mobileMenuElement' id='search'>
+                    <search>
+                        <form class="searchForm" action="./search/">
+                            <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
+                            <button type="submit" class="searchButton">
+                                <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
+                            </button>
+                        </form>
+                    </search>
+                </li>
+                <li class='mobileMenuElement' id='contacts'>Контакты</li>
+                <li class='mobileMenuElement' id='phoneNumber'>+7 (702) 444 49 99</li>
+                <li class='mobileMenuElement' id='about'>О лавке</li>
+            </ul>
+
+            <!-- Меню категорий для мобильной версии -->
+            <div class='mobileCategoryNavSide'>
+                <ul class='mobileCategoriesMenu'>
+                    {% for category in root_categories %}
+                        {% if category.subcategories.exists %}
+                            <li class='mobileCategory__dropdown'>
+                                {{ category.name }}
+                                <ul class='mobileSubcategoriesMenu'>
+                                    {% for subcategory in category.get_subcategories %}
+                                        <li class='mobileSubcategory' data-slug="{{ subcategory.slug }}">{{ subcategory.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class='mobileCategory' data-slug="{{ category.slug }}">{{ category.name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav>
+    </header>
     <main>
         <div class="wrapperContainer">
             <div class="topMainUrl">

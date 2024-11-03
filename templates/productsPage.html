@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,8 +8,12 @@
         <title>Антикварная лавка</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../static/css/productsPage/productsPage.css">
-        <script src="../static/js/productsPage.js"></script>
+        <link rel="stylesheet" href="{% static 'css/productsPage/productsPage.css' %}">
+        <script type="text/javascript">
+            const closeMobileMenuIcon = "{% static 'icons/closeMobileMenuIcon.png' %}";
+            const openMobileMenuIcon = "{% static 'icons/menuIconLightGrey.png' %}";
+        </script>
+        <script src="{% static 'js/productsPage.js' %}"></script>
     </head>
 <body>
     <header>
@@ -22,25 +28,25 @@
                         Контакты
                     </li>
                     <li class='headerTopMenuElement' id='phoneNumber'>
-                        +7 (777) 000 56 95
+                        +7 (702) 444 49 99
                     </li>
                     <li class='headerTopMenuElement' id='search'>
                         <search>
                             <form class="searchForm" action="./search/">
                                 <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
                                 <button type="submit" class="searchButton">
-                                    <img class="searchIcon" src="../static/icons/searchIcon.png" alt="Поиск" />
+                                    <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                                 </button>
                             </form>
                         </search>   
                     </li>
                 </ul>
             </nav>   
-            <button class='mobileMenuButton' id='mobileMenuButton'>
-                <img class="mobileMenuButtonIcon" src="../static/icons/menuIconLightGrey.png" alt="Поиск" />
-            </button>            
+            <button id="mobileMenuButton" class="mobileMenuButton">
+                <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" />
+            </button>
         </div>
- 
+        
         <nav class='mobileMenu' style='display: none;'>
             <ul class='mobileMenuList'>
                 <li class='mobileMenuElement' id='search'>
@@ -48,67 +54,62 @@
                         <form class="searchForm" action="./search/">
                             <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
                             <button type="submit" class="searchButton">
-                                <img class="searchIcon" src="../static/icons/searchIcon.png" alt="Поиск" />
+                                <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                             </button>
                         </form>
                     </search>
                 </li>
-                <li class='mobileMenuElement' id='contacts'>
-                    Контакты
-                </li>
-                <li class='mobileMenuElement' id='phoneNumber'>
-                    +7 (777) 000 56 95
-                </li>
-                <li class='mobileMenuElement' id='about'>   
-                    О лавке
-                </li>
+                <li class='mobileMenuElement' id='contacts'>Контакты</li>
+                <li class='mobileMenuElement' id='phoneNumber'>+7 (702) 444 49 99</li>
+                <li class='mobileMenuElement' id='about'>О лавке</li>
             </ul>
+
+            <!-- Меню категорий для мобильной версии -->
+            <div class='mobileCategoryNavSide'>
+                <ul class='mobileCategoriesMenu'>
+                    {% for category in root_categories %}
+                        {% if category.subcategories.exists %}
+                            <li class='mobileCategory__dropdown'>
+                                {{ category.name }}
+                                <ul class='mobileSubcategoriesMenu'>
+                                    {% for subcategory in category.get_subcategories %}
+                                        <li class='mobileSubcategory' data-slug="{{ subcategory.slug }}">{{ subcategory.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class='mobileCategory' data-slug="{{ category.slug }}">{{ category.name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
         </nav>
     </header>
     <main>
-        <div class="main_top">
-            <nav class='categoryNavSide'>
-                <ul class='categoriesMenu'>
-                    <li class='category'>Обувь</li>
-                    <li class='category__dropdown'>
-                        Мебель
-                        <ul class='subcategoriesMenu'>
-                            <li class='subcategory'>Стулья</li>
-                            <li class='subcategory'>Столы</li>
-                            <li class='subcategory'>Шкафы</li>
-                        </ul>
+        <nav class="categoryNavSide">
+            <ul class="categoriesMenu">
+                {% for category in root_categories %}
+                    <li class="category{% if category.subcategories.all %} category__dropdown{% endif %}" data-slug="{{ category.slug }}">
+                        {{ category.name }}
+                        {% if category.subcategories.all %}
+                            <ul class="subcategoriesMenu">
+                                {% for subcategory in category.subcategories.all %}
+                                    <li class="subcategory" data-slug="{{ subcategory.slug }}">{{ subcategory.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </li>
-                    <li class='category'>Посуда</li>
-                    <li class='category'>Сувениры</li>
-                    <li class='category'>Медали</li>
-                    <li class='category__dropdown'>
-                        Одежда
-                        <ul class='subcategoriesMenu'>
-                            <li class='subcategory'>Костюмы</li>
-                            <li class='subcategory'>Шляпы</li>
-                            <li class='subcategory'>Жилетки</li>
-                        </ul>
-                    </li>
-                    
-                </ul>
-            </nav>
-            <div class="productsBox">
-                <div class="product1">
-                    <img src="../media/products/OIP.jpg" alt="Produtc Image">
-                    <h3>Ебейший стул нахуй</h3>
-                    <span>1000000 ТГ</span>
+                {% endfor %}
+            </ul>
+        </nav>
+        <div class="productsBox">
+            {% for products in product %}
+                <div class="product">
+                    <img src="{{ products.images.first.image.url }}" alt="{{ products.name }} Image">
+                    <h3>{{ products.name }}</h3>
+                    <span>{{ products.price }} ТГ</span>
                 </div>
-                <div class="product2">
-                    <img src="../media/products/OIP.jpg" alt="Produtc Image">
-                    <h3>Ебейший стул нахуй</h3>
-                    <span>1000000 ТГ</span>
-                </div>
-                <div class="product3">
-                    <img src="../media/products/OIP.jpg" alt="Produtc Image">
-                    <h3>Ебейший стул нахуй</h3>
-                    <span>1000000 ТГ</span>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </main>
 </body>
