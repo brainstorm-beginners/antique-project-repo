@@ -12,6 +12,8 @@
         <script type="text/javascript">
             const closeMobileMenuIcon = "{% static 'icons/closeMobileMenuIcon.png' %}";
             const openMobileMenuIcon = "{% static 'icons/menuIconLightGrey.png' %}";
+            const totalPages = {{ total_pages }};
+            let currentPage = {{ page_obj.number }};
         </script>
         <script src="{% static 'js/mainPage.js' %}"></script>
     </head>
@@ -114,6 +116,20 @@
             {% endfor %}
         </div>
         </main>
+        <div class="pagination">
+            <!-- Кнопка "Назад" -->
+            <button class="pagination__button" onclick="changePage(currentPage - 1)" aria-label="Назад"
+                    {% if not page_obj.has_previous %} disabled {% endif %}>&laquo;</button>
+    
+            <!-- Номера страниц -->
+            <div class="pagination__pages" id="pagination-pages">
+                <!-- Здесь будут отображаться номера страниц через JS -->
+            </div>
+    
+            <!-- Кнопка "Вперед" -->
+            <button class="pagination__button" onclick="changePage(currentPage + 1)" aria-label="Вперед"
+                    {% if not page_obj.has_next %} disabled {% endif %}>&raquo;</button>
+        </div>
         <footer>
 
         </footer>

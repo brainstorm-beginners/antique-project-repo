@@ -12,6 +12,8 @@
         <script type="text/javascript">
             const closeMobileMenuIcon = "{% static 'icons/closeMobileMenuIcon.png' %}";
             const openMobileMenuIcon = "{% static 'icons/menuIconLightGrey.png' %}";
+            const totalPages = {{ total_pages }};
+            let currentPage = {{ page_obj.number }};
         </script>
         <script src="{% static 'js/productsPage.js' %}"></script>
     </head>
@@ -107,16 +109,30 @@
             </ul>
         </nav>
         <div class="productsBox">
-            {% for products in product %}
+            {% for product in products %}
                 <div class="product">
-                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}">
-                        <img src="{{ products.images.first.image.url }}" alt="{{ products.name }} Image">
-                        <h3>{{ products.name }}</h3>
-                        <span>{{ products.price }} ТГ</span>
+                    <a href="{% url 'product_page' category_slug=product.category.slug product_slug=product.slug %}">
+                        <img src="{{ product.images.first.image.url }}" alt="{{ product.name }} Image">
+                        <h3>{{ product.name }}</h3>
+                        <span>{{ product.price }} ТГ</span>
                     </a>
                 </div>
             {% endfor %}
         </div>
     </main>
+    <div class="pagination">
+        <!-- Кнопка "Назад" -->
+        <button class="pagination__button" onclick="changePage(currentPage - 1)" aria-label="Назад"
+                {% if not page_obj.has_previous %} disabled {% endif %}>&laquo;</button>
+
+        <!-- Номера страниц -->
+        <div class="pagination__pages" id="pagination-pages">
+            <!-- Здесь будут отображаться номера страниц через JS -->
+        </div>
+
+        <!-- Кнопка "Вперед" -->
+        <button class="pagination__button" onclick="changePage(currentPage + 1)" aria-label="Вперед"
+                {% if not page_obj.has_next %} disabled {% endif %}>&raquo;</button>
+    </div>
 </body>
 </html>

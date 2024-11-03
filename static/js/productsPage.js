@@ -2,25 +2,39 @@ function setSelectedCategory(categoryName) {
   localStorage.setItem("selectedCategory", categoryName);
 }
 
-function getSelectedCategory() {
-  return localStorage.getItem("selectedCategory");
-}
+function renderPagination() {
+        const paginationContainer = document.getElementById("pagination-pages");
+        paginationContainer.innerHTML = ''; // Очистим старые страницы
 
-// Функция выделения выбранной категории
-function highlightSelectedCategory() {
-  const selectedCategory = getSelectedCategory();
-  const categories = document.querySelectorAll(".category, .subcategory, .category__dropdown");
-  categories.forEach((category) => {
-    if (category.textContent.trim() === selectedCategory) {
-      category.classList.add("selected");
-    } else {
-      category.classList.remove("selected");
+        // Определяем начальную и конечную страницу для отображения
+        const startPage = Math.max(1, currentPage - 2);
+        const endPage = Math.min(totalPages, startPage + 5);
+
+        // Генерируем кнопки страниц
+        for (let page = startPage; page <= endPage; page++) {
+            const button = document.createElement("button");
+            button.className = "pagination__page";
+            button.innerText = page.toString();
+            button.onclick = () => changePage(page);
+
+            // Добавляем активный класс для текущей страницы
+            if (page === currentPage) {
+                button.classList.add("active");
+            }
+            paginationContainer.appendChild(button);
+        }
     }
-  });
+
+function changePage(newPage) {
+    if (newPage < 1 || newPage > totalPages) return;  // Проверка допустимого диапазона
+
+    currentPage = newPage;
+    renderPagination();
+    window.location.href = `?page=${newPage}`;  // Переход на новую страницу
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
     const mobileMenu = document.querySelector('.mobileMenu');
     const mobileMenuButtonImg = document.querySelector('.mobileMenuButtonIcon');
 
@@ -123,4 +137,6 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  renderPagination();  // Первичная отрисовка пагинации
 });
