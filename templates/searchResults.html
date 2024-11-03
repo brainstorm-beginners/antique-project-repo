@@ -4,11 +4,9 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Антикварная лавка</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Результаты поиска</title>
         <link rel="stylesheet" href="{% static 'css/productsPage/productsPage.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript">
             const closeMobileMenuIcon = "{% static 'icons/closeMobileMenuIcon.png' %}";
             const openMobileMenuIcon = "{% static 'icons/menuIconLightGrey.png' %}";
@@ -22,7 +20,7 @@
             <div class='topHeaderBlock'>
                 <h1 class='shopTitle'>
                     <a href="{% url 'home' %}">Ретро-лавка</a>
-                </h1>    
+                </h1>  
                 <nav class='headerTopRight'>
                     <ul class='headerTopMenu'>
                         <li class='headerTopMenuElement' id='aboutShop'>
@@ -89,10 +87,7 @@
                 </div>
             </nav>
         </header>
-        <span class="topMainUrl">
-            <a href="/home/">Главная&nbsp;</a> /
-            <a href="/home/category/{{ product.category.slug }}">&nbsp;{{ product.category.name }}</a>{{ selected_category.name }}
-        </span>
+        <h2 class='searchResultsTitle'>Результаты поиска по запросу: "{{ query }}"</h2>
         <main>
             <nav class="categoryNavSide">
                 <ul class="categoriesMenu">
@@ -110,31 +105,40 @@
                     {% endfor %}
                 </ul>
             </nav>
-            <div class="productsBox">
-                {% for product in products %}
-                    <div class="product">
-                        <a href="{% url 'product_page' category_slug=product.category.slug product_slug=product.slug %}">
-                            <img src="{{ product.images.first.image.url }}" alt="{{ product.name }} Image">
-                            <h3>{{ product.name }}</h3>
-                            <span>{{ product.price }} ТГ</span>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
+
+            <!-- Сообщение, если товаров не найдено -->
+            {% if no_results %}
+                <h2 class='noSearchResultsMessage'>Ничего не найдено по вашему запросу.</h2>
+            {% else %}
+                <div class="productsBox">
+                    {% for product in products %}
+                        <div class="product">
+                            <a href="{% url 'product_page' category_slug=product.category.slug product_slug=product.slug %}">
+                                <img src="{{ product.images.first.image.url }}" alt="{{ product.name }} Image">
+                                <h3>{{ product.name }}</h3>
+                                <span>{{ product.price }} ТГ</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </main>
+        <!-- Пагинация -->
         <div class="pagination">
-            <!-- Кнопка "Назад" -->
-            <button class="pagination__button" onclick="changePage(currentPage - 1)" aria-label="Назад"
+            <button class="pagination__button" 
+                    onclick="changePage({% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}1{% endif %})" 
+                    aria-label="Назад" 
                     {% if not page_obj.has_previous %} disabled {% endif %}>&laquo;</button>
-
-            <!-- Номера страниц -->
+            
             <div class="pagination__pages" id="pagination-pages">
-                <!-- Здесь будут отображаться номера страниц через JS -->
+                <!-- JS отобразит номера страниц -->
             </div>
 
-            <!-- Кнопка "Вперед" -->
-            <button class="pagination__button" onclick="changePage(currentPage + 1)" aria-label="Вперед"
+            <button class="pagination__button" 
+                    onclick="changePage({% if page_obj.has_next %}{{ page_obj.next_page_number }}{% else %}{{ total_pages }}{% endif %})" 
+                    aria-label="Вперед" 
                     {% if not page_obj.has_next %} disabled {% endif %}>&raquo;</button>
         </div>
     </body>
 </html>
+

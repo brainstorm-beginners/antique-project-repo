@@ -259,6 +259,7 @@ header {
           .mobileSubcategoriesMenu {
             height: max-content;
             width: max-content;
+            max-width: 150px;
             display: none;
             align-items: center;
             flex-direction: column;

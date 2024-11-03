@@ -20,7 +20,9 @@
     <body>  
         <header>
             <div class='topHeaderBlock'>
-                <h1 class='shopTitle'>Ретро-лавка</h1>
+                <h1 class='shopTitle'>
+                    <a href="{% url 'home' %}">Ретро-лавка</a>
+                </h1>  
                 <nav class='headerTopRight'>
                     <ul class='headerTopMenu'>
                         <li class='headerTopMenuElement' id='aboutShop'>
@@ -53,12 +55,12 @@
                 <ul class='mobileMenuList'>
                     <li class='mobileMenuElement' id='search'>
                         <search>
-                            <form class="searchForm" action="./search/">
+                            <form class="searchForm" action="{% url 'search_results' %}" method="get">
                                 <input class="searchBar" type="search" id="products" name="q" placeholder="Поиск" />
                                 <button type="submit" class="searchButton">
                                     <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                                 </button>
-                            </form>
+                            </form>                            
                         </search>
                     </li>
                     <li class='mobileMenuElement' id='contacts'>Контакты</li>

@@ -192,6 +192,13 @@ header .mobileMenu .mobileMenuList .searchForm .searchButton .searchIcon {
   }
 }
 
+.topMainUrl {
+  display: flex;
+  padding: 2em 0 0 2em;
+  font-family: "Montserrat", sans-serif;
+  align-items: center;
+}
+
 main {
   z-index: 1;
   padding: 30px 0px;

@@ -241,6 +241,7 @@ header .mobileMenu .mobileCategoryNavSide .mobileCategoriesMenu .mobileSubcatego
   height: max-content;
   width: -moz-max-content;
   width: max-content;
+  max-width: 150px;
   display: none;
   align-items: center;
   flex-direction: column;
@@ -284,6 +285,13 @@ header .mobileMenu .mobileCategoryNavSide .mobileCategoriesMenu .mobileSubcatego
   padding: 2em 0 0 2em;
   font-family: "Montserrat", sans-serif;
   align-items: center;
+}
+
+.searchResultsTitle {
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  margin-top: 50px;
+  margin-left: 50px;
 }
 
 main {
@@ -368,8 +376,13 @@ main .categoryNavSide .categoriesMenu .subcategoriesMenu .subcategory:hover {
 }
 @media only screen and (max-width: 800px) {
   main .categoryNavSide {
-    display: none;
+    display: none !important;
   }
+}
+main .noSearchResultsMessage {
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  margin-left: 26%;
 }
 main .productsBox {
   flex: 1;
