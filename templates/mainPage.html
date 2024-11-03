@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,8 +8,12 @@
         <title>Антикварная лавка</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../static/css/mainPage/mainPage.css">
-        <script src="../static/js/mainPage.js"></script>
+        <link rel="stylesheet" href="{% static 'css/mainPage/mainPage.css' %}">
+        <script type="text/javascript">
+            const closeMobileMenuIcon = "{% static 'icons/closeMobileMenuIcon.png' %}";
+            const openMobileMenuIcon = "{% static 'icons/menuIconLightGrey.png' %}";
+        </script>
+        <script src="{% static 'js/mainPage.js' %}"></script>
     </head>
     <body>  
         <header>
@@ -29,16 +35,16 @@
                                 <form class="searchForm" action="./search/">
                                     <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
                                     <button type="submit" class="searchButton">
-                                        <img class="searchIcon" src="../static/icons/searchIcon.png" alt="Поиск" />
+                                        <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                                     </button>
                                 </form>
                             </search>   
                         </li>
                     </ul>
                 </nav>   
-                <button class='mobileMenuButton' id='mobileMenuButton'>
-                    <img class="mobileMenuButtonIcon" src="../static/icons/menuIconLightGrey.png" alt="Поиск" />
-                </button>            
+                <button id="mobileMenuButton" class="mobileMenuButton">
+                    <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" />
+                </button>
             </div>
             
             <nav class='mobileMenu' style='display: none;'>
@@ -48,72 +54,52 @@
                             <form class="searchForm" action="./search/">
                                 <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
                                 <button type="submit" class="searchButton">
-                                    <img class="searchIcon" src="../static/icons/searchIcon.png" alt="Поиск" />
+                                    <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                                 </button>
                             </form>
                         </search>
                     </li>
-                    <li class='mobileMenuElement' id='contacts'>
-                        Контакты
-                    </li>
-                    <li class='mobileMenuElement' id='phoneNumber'>
-                        +7 (777) 000 56 95
-                    </li>
-                    <li class='mobileMenuElement' id='about'>   
-                        О лавке
-                    </li>
+                    <li class='mobileMenuElement' id='contacts'>Контакты</li>
+                    <li class='mobileMenuElement' id='phoneNumber'>+7 (777) 000 56 95</li>
+                    <li class='mobileMenuElement' id='about'>О лавке</li>
                 </ul>
+
+                <!-- Меню категорий для мобильной версии -->
                 <div class='mobileCategoryNavSide'>
                     <ul class='mobileCategoriesMenu'>
-                        <li class='mobileCategory'>Обувь</li>
-                        <li class='mobileCategory__dropdown'>
-                            Мебель
-                            <ul class='mobileSubcategoriesMenu'>
-                                <li class='mobileSubcategory'>Стулья</li>
-                                <li class='mobileSubcategory'>Столы</li>
-                                <li class='mobileSubcategory'>Шкафы</li>
-                            </ul>
-                        </li>
-                        <li class='mobileCategory'>Посуда</li>
-                        <li class='mobileCategory'>Сувениры</li>
-                        <li class='mobileCategory'>Медали</li>
-                        <li class='mobileCategory__dropdown'>
-                            Одежда
-                            <ul class='mobileSubcategoriesMenu'>
-                                <li class='mobileSubcategory'>Костюмы</li>
-                                <li class='mobileSubcategory'>Шляпы</li>
-                                <li class='mobileSubcategory'>Жилетки</li>
-                            </ul>
-                        </li>
-                        <li class='mobileCategory'>Медали</li>
+                        {% for category in root_categories %}
+                            {% if category.subcategories.exists %}
+                                <li class='mobileCategory__dropdown'>
+                                    {{ category.name }}
+                                    <ul class='mobileSubcategoriesMenu'>
+                                        {% for subcategory in category.get_subcategories %}
+                                            <li class='mobileSubcategory' data-slug="{{ subcategory.slug }}">{{ subcategory.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li class='mobileCategory' data-slug="{{ category.slug }}">{{ category.name }}</li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
                 </div>
             </nav>
         </header>
         <main>
-            <nav class='categoryNavSide'>
-                <ul class='categoriesMenu'>
-                    <li class='category'>Обувь</li>
-                    <li class='category__dropdown'>
-                        Мебель
-                        <ul class='subcategoriesMenu'>
-                            <li class='subcategory'>Стулья</li>
-                            <li class='subcategory'>Столы</li>
-                            <li class='subcategory'>Шкафы</li>
-                        </ul>
-                    </li>
-                    <li class='category'>Посуда</li>
-                    <li class='category'>Сувениры</li>
-                    <li class='category'>Медали</li>
-                    <li class='category__dropdown'>
-                        Одежда
-                        <ul class='subcategoriesMenu'>
-                            <li class='subcategory'>Костюмы</li>
-                            <li class='subcategory'>Шляпы</li>
-                            <li class='subcategory'>Жилетки</li>
-                        </ul>
-                    </li>
-                    <li class='category'>Медали</li>
+            <nav class="categoryNavSide">
+                <ul class="categoriesMenu">
+                    {% for category in root_categories %}
+                        <li class="category{% if category.subcategories.all %} category__dropdown{% endif %}" data-slug="{{ category.slug }}">
+                            {{ category.name }}
+                            {% if category.subcategories.all %}
+                                <ul class="subcategoriesMenu">
+                                    {% for subcategory in category.subcategories.all %}
+                                        <li class="subcategory" data-slug="{{ subcategory.slug }}">{{ subcategory.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
                 </ul>
             </nav>
         </main>

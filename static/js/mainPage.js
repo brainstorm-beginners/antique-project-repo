@@ -1,3 +1,5 @@
+console.log("TEST")
+
 function setSelectedCategory(categoryName) {
   localStorage.setItem("selectedCategory", categoryName);
 }
@@ -20,18 +22,24 @@ function highlightSelectedCategory() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  // Настройка мобильного меню
   const mobileMenuButton = document.getElementById('mobileMenuButton');
-  const mobileMenu = document.querySelector('.mobileMenu');
-  const mobileMenuButtonIcon = document.querySelector('.mobileMenuButtonIcon');
-  const menuIcon = '../static/icons/menuIconLightGrey.png';
-  const closeIcon = '../static/icons/closeMobileMenuIcon.png';
+    const mobileMenu = document.querySelector('.mobileMenu');
+    const mobileMenuButtonImg = document.querySelector('.mobileMenuButtonIcon');
 
-  mobileMenuButton.addEventListener('click', () => {
-    mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+    // Убедимся, что иконка открытого меню совпадает с изначальной
+    mobileMenuButtonImg.src = openMobileMenuIcon;
 
-    mobileMenuButtonIcon.src = mobileMenuButtonIcon.src.includes('menuIconLightGrey.png') ? closeIcon : menuIcon;
-  });
+    mobileMenuButton.addEventListener('click', () => {
+        // Показываем или скрываем меню
+        mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+
+        // Переключаем иконку, исходя из текущего состояния меню
+        if (mobileMenuButtonImg.src === openMobileMenuIcon) {
+            mobileMenuButtonImg.src = closeMobileMenuIcon;
+        } else {
+            mobileMenuButtonImg.src = openMobileMenuIcon;
+        }
+    });
 
   const dropdownCategories = document.querySelectorAll(".category__dropdown");
   const categories = document.querySelectorAll(".category, .subcategory, .category__dropdown");
@@ -68,8 +76,10 @@ window.addEventListener("DOMContentLoaded", () => {
         setSelectedCategory(categoryName);
 
         // Переход на URL с категорией
-        const urlCategoryName = categoryName.toLowerCase().replace(" ", "_");
-        window.location.href = `/api/v1/${urlCategoryName}`;
+        const slug = category.getAttribute("data-slug");
+        if (slug) {
+          window.location.href = `/home/category/${slug}`;
+        }
       }
     });
   });
@@ -108,12 +118,11 @@ window.addEventListener("DOMContentLoaded", () => {
         setSelectedCategory(mobileCategoryName);
 
         // Переход на URL с категорией
-        const urlCategoryName = mobileCategoryName.toLowerCase().replace(" ", "_");
-        window.location.href = `/api/v1/${urlCategoryName}`;
+        const slug = mobileCategory.getAttribute("data-slug");
+        if (slug) {
+          window.location.href = `/home/category/${slug}`;
+        }
       }
     });
   });
-
-  // Подсвечиваем выбранную категорию при загрузке страницы
-  // highlightSelectedCategory();
 });
