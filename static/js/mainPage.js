@@ -1,5 +1,3 @@
-console.log("TEST")
-
 function setSelectedCategory(categoryName) {
   localStorage.setItem("selectedCategory", categoryName);
 }

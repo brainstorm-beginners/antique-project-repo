@@ -16,8 +16,8 @@ def product_page(request: WSGIRequest, product_slug: str, category_slug: str) ->
 
 
 def products_page(request: WSGIRequest, category_slug: str) -> render:
-    category = get_object_or_404(Category, slug=category_slug)  # Получаем категорию по slug
-    products = Product.objects.filter(category=category)  # Получаем продукты, относящиеся к этой категории
+    category = get_object_or_404(Category, slug=category_slug)
+    products = Product.objects.filter(category=category)
     root_categories = Category.objects.filter(parent__isnull=True).prefetch_related('subcategories')
 
     return render(request, 'productsPage.html',

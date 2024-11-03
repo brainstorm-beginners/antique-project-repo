@@ -85,19 +85,20 @@
             </div>
         </nav>
     </header>
-        <div class="topMainUrl">
-            <span class="topMainText">Главная / Каталог / {{ product.category.name }}</span>
-        </div>
+    <span class="topMainUrl">
+        <a href="/home/">Главная&nbsp;</a> /
+        <a href="/home/category/{{ product.category.slug }}">&nbsp;{{ product.category.name }}</a>{{ selected_category.name }}
+    </span>
     <main>
         <nav class="categoryNavSide">
             <ul class="categoriesMenu">
                 {% for category in root_categories %}
                     <li class="category{% if category.subcategories.all %} category__dropdown{% endif %}" data-slug="{{ category.slug }}">
-                        <a href="{% url 'products_page' category.slug %}">{{ category.name }}</a>
+                        {{ category.name }}
                         {% if category.subcategories.all %}
                             <ul class="subcategoriesMenu">
                                 {% for subcategory in category.subcategories.all %}
-                                    <li class="subcategory"><a href="{% url 'products_page' subcategory.slug %}">{{ subcategory.name }}</a></li>
+                                    <li class="subcategory" data-slug="{{ subcategory.slug }}">{{ subcategory.name }}</li>
                                 {% endfor %}
                             </ul>
                         {% endif %}

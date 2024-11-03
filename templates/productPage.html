@@ -89,9 +89,14 @@
     </header>
     <main>
         <div class="wrapperContainer">
-            <div class="topMainUrl">
-                <span class="topMainText">Главная / Каталог / {{ product.category.name }} / {{ product.name }}</span>
-            </div>
+            <span class="topMainUrl">
+                <a href="/home/">Главная&nbsp;</a> /
+                <a href="/home/category/{{ product.category.slug }}">&nbsp;{{ product.category.name }}&nbsp;</a>
+                {% if product.category.subcategories.first %}
+                    / {{ product.category.subcategories.first.name }}
+                {% endif %}
+                / {{ product.name }}
+            </span>
             <div class="productTitle">
                 <div class="productImage">
                     <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}">
