@@ -24,8 +24,8 @@ from antiqueProject import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', main_page, name='home'),
-    path('product/<slug:product_slug>/', product_page, name='product_page'),
-    path('products/', products_page, name='products_page'),
+    path('home/category/<slug:category_slug>/product/<slug:product_slug>/', product_page, name='product_page'),
+    path('home/category/<slug:category_slug>/', products_page, name='products_page'),
 ]
 
 if settings.DEBUG:

@@ -103,14 +103,16 @@
                 </ul>
             </nav>
             <div class="productsBox">
-                {% for products in products %}
-                    <div class="product">
+            {% for products in products %}
+                <div class="product">
+                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}">
                         <img src="{{ products.images.first.image.url }}" alt="{{ products.name }} Image">
                         <h3>{{ products.name }}</h3>
                         <span>{{ products.price }} ТГ</span>
-                    </div>
-                {% endfor %}
-            </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
         </main>
         <footer>
 

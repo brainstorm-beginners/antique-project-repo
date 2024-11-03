@@ -18,7 +18,9 @@
 <body>
     <header>
         <div class='topHeaderBlock'>
-            <h1 class='shopTitle'>Ретро-лавка</h1>
+            <h1 class='shopTitle'>
+            <a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">Ретро-лавка</a>  <!-- Добавлено оборачивание в тег <a> -->
+            </h1>
             <nav class='headerTopRight'>
                 <ul class='headerTopMenu'>
                     <li class='headerTopMenuElement' id='aboutShop'>

@@ -85,16 +85,19 @@
             </div>
         </nav>
     </header>
+        <div class="topMainUrl">
+            <span class="topMainText">Главная / Каталог / {{ product.category.name }}</span>
+        </div>
     <main>
         <nav class="categoryNavSide">
             <ul class="categoriesMenu">
                 {% for category in root_categories %}
                     <li class="category{% if category.subcategories.all %} category__dropdown{% endif %}" data-slug="{{ category.slug }}">
-                        {{ category.name }}
+                        <a href="{% url 'products_page' category.slug %}">{{ category.name }}</a>
                         {% if category.subcategories.all %}
                             <ul class="subcategoriesMenu">
                                 {% for subcategory in category.subcategories.all %}
-                                    <li class="subcategory" data-slug="{{ subcategory.slug }}">{{ subcategory.name }}</li>
+                                    <li class="subcategory"><a href="{% url 'products_page' subcategory.slug %}">{{ subcategory.name }}</a></li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
@@ -105,9 +108,11 @@
         <div class="productsBox">
             {% for products in product %}
                 <div class="product">
-                    <img src="{{ products.images.first.image.url }}" alt="{{ products.name }} Image">
-                    <h3>{{ products.name }}</h3>
-                    <span>{{ products.price }} ТГ</span>
+                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}">
+                        <img src="{{ products.images.first.image.url }}" alt="{{ products.name }} Image">
+                        <h3>{{ products.name }}</h3>
+                        <span>{{ products.price }} ТГ</span>
+                    </a>
                 </div>
             {% endfor %}
         </div>
