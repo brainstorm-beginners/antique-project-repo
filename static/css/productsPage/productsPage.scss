@@ -323,6 +323,16 @@ header {
   margin-left: 50px;
 }
 
+@media only screen and (max-width: 800px) {
+  .searchResultsTitle {
+    padding: 10px 30px;
+    font-family: $secondary-font;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 main {
     display: flex;
     z-index: 1;

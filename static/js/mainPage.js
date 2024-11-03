@@ -49,6 +49,8 @@ window.addEventListener("DOMContentLoaded", () => {
         if (mobileMenuButtonImg.src === openMobileMenuIcon) {
             mobileMenuButtonImg.src = closeMobileMenuIcon;
         } else {
+          console.log("OUR VARIABLE:" + openMobileMenuIcon);
+          console.log("SRC:" + mobileMenuButtonImg.src);
             mobileMenuButtonImg.src = openMobileMenuIcon;
         }
     });
