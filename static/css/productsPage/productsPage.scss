@@ -284,20 +284,20 @@ header {
         }
       }
     
-      @media only screen and (max-width: 768px) {
+      @media only screen and (max-width: 800px) {
         .mobileCategoryNavSide {
           display: flex;
         }
       }
     }
 
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 800px) {
       .mobileMenu {
         display: none !important;
       } 
     }
      
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 800px) {
       .mobileMenuButton {
         display: block !important;
       } 
@@ -313,15 +313,9 @@ main {
     z-index: 1;
     padding: 30px 0px;
 
-    .main_top {
-      display: flex;
-      flex-direction: row;
-    }
-
   .categoryNavSide {
     height: max-content;
-    width: 10%;
-    min-width: max-content;
+    width: max-content;
     background-color: $dark-grey-color;
     overflow-y: auto;
     padding: 20px;
@@ -329,6 +323,7 @@ main {
     border-bottom-right-radius: 10px;
 
     .categoriesMenu {
+      width: 155px;
       list-style: none;
       padding: 0;
       margin: 0;
@@ -370,12 +365,12 @@ main {
           content: "↓";
           position: absolute;
           left: 10px;
+          top: 8px;
           transform: rotate(0);
           transition: transform 0.3s ease;
         }
 
         &.open::after {
-          top: 6%;
           transform: rotate(-180deg);
         }
       }
@@ -404,18 +399,17 @@ main {
     }
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 800px) {
     .categoryNavSide {
       display: none;
     }
   }
 
   .productsBox {
-    width: auto;
-    min-width: 80%;
-    max-width: 90%;
-    padding: 0 0 0 10px;
+    flex: 1;
+    margin-right: 0;
     display: grid;
+    padding: 0 4em;
     grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
     gap: 2em;
     font-family: $secondary-font;
@@ -423,14 +417,21 @@ main {
 
   .product {
     width: 100%;
+    margin-right: 20px;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     h3 {
-        margin: 0.5em 0 0.5em 0;   
+      width: 17.2em;
+      margin: 0.5em 0 0.5em 0;   
     }
 
     span {
-        color: $light-grey-color;
-        font-weight: 500;
+      width: 20em;
+      color: $light-grey-color;
+      font-weight: 500;
     }
 
     img {
@@ -439,20 +440,31 @@ main {
         width: 20em;
         border-radius: 1em;
     }
+
+    &:last-child {
+      margin-right: 0;
+      float: right;
+    }
+
+    &:nth-child(4n+4) {
+      margin-right: 0;
+      float: right;
+    }
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 800px) {
     .productsBox {
         width: 100%;
-        padding: 0 2em 0 2em;
         justify-content: center;
         align-items: center;
         display: flex;
         flex-direction: column;
+        padding: 0;
     }
 
     .product {
-        padding-bottom: 1em;
+      margin-right: 0 !important;
+      padding-bottom: 1em;
     }
   }
 }
