@@ -11,10 +11,104 @@
         <script src="https://api-maps.yandex.ru/v3/?apikey=e55d1c66-9ad0-45b1-9194-dac6a953d918&lang=ru_RU"></script>
     </head>
 <body>
+    <header>
+        <div class='topHeaderBlock'>
+            <h1 class='shopTitle'>Ретро-лавка</h1>
+            <nav class='headerTopRight'>
+                <ul class='headerTopMenu'>
+                    <li class='headerTopMenuElement' id='aboutShop'>
+                        О лавке
+                    </li>
+                    <li class='headerTopMenuElement' id='contacts'>
+                        Контакты
+                    </li>
+                    <li class='headerTopMenuElement' id='phoneNumber'>
+                        +7 (777) 000 56 95
+                    </li>
+                    <li class='headerTopMenuElement' id='search'>
+                        <search>
+                            <form class="searchForm" action="./search/">
+                                <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
+                                <button type="submit" class="searchButton">
+                                    <img class="searchIcon" src="../static/icons/searchIcon.png" alt="Поиск" />
+                                </button>
+                            </form>
+                        </search>   
+                    </li>
+                </ul>
+            </nav>   
+            <button class='mobileMenuButton' id='mobileMenuButton'>
+                <img class="mobileMenuButtonIcon" src="../static/icons/menuIconLightGrey.png" alt="Поиск" />
+            </button>            
+        </div>
+ 
+        <nav class='mobileMenu' style='display: none;'>
+            <ul class='mobileMenuList'>
+                <li class='mobileMenuElement' id='search'>
+                    <search>
+                        <form class="searchForm" action="./search/">
+                            <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
+                            <button type="submit" class="searchButton">
+                                <img class="searchIcon" src="../static/icons/searchIcon.png" alt="Поиск" />
+                            </button>
+                        </form>
+                    </search>
+                </li>
+                <li class='mobileMenuElement' id='contacts'>
+                    Контакты
+                </li>
+                <li class='mobileMenuElement' id='phoneNumber'>
+                    +7 (777) 000 56 95
+                </li>
+                <li class='mobileMenuElement' id='about'>   
+                    О лавке
+                </li>
+            </ul>
+        </nav>
+    </header>
     <main>
-        <div class="productsBox">
-            <div>
-                
+        <div class="main_top">
+            <nav class='categoryNavSide'>
+                <ul class='categoriesMenu'>
+                    <li class='category'>Обувь</li>
+                    <li class='category__dropdown'>
+                        Мебель
+                        <ul class='subcategoriesMenu'>
+                            <li class='subcategory'>Стулья</li>
+                            <li class='subcategory'>Столы</li>
+                            <li class='subcategory'>Шкафы</li>
+                        </ul>
+                    </li>
+                    <li class='category'>Посуда</li>
+                    <li class='category'>Сувениры</li>
+                    <li class='category'>Медали</li>
+                    <li class='category__dropdown'>
+                        Одежда
+                        <ul class='subcategoriesMenu'>
+                            <li class='subcategory'>Костюмы</li>
+                            <li class='subcategory'>Шляпы</li>
+                            <li class='subcategory'>Жилетки</li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </nav>
+            <div class="productsBox">
+                <div class="product1">
+                    <img src="../media/products/OIP.jpg" alt="Produtc Image">
+                    <h3>Ебейший стул нахуй</h3>
+                    <span>1000000 ТГ</span>
+                </div>
+                <div class="product2">
+                    <img src="../media/products/OIP.jpg" alt="Produtc Image">
+                    <h3>Ебейший стул нахуй</h3>
+                    <span>1000000 ТГ</span>
+                </div>
+                <div class="product3">
+                    <img src="../media/products/OIP.jpg" alt="Produtc Image">
+                    <h3>Ебейший стул нахуй</h3>
+                    <span>1000000 ТГ</span>
+                </div>
             </div>
         </div>
     </main>
