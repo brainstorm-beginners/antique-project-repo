@@ -12,8 +12,7 @@ a {
 }
 
 header {
-  height: -moz-max-content;
-  height: max-content;
+  height: auto;
   width: auto;
   background-color: #2e2e2e;
 }
