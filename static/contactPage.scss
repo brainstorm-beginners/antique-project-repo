@@ -1,8 +1,218 @@
 @import 'variables';
 
+body {
+    margin: 0 !important;
+    padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header {
+  height: auto;
+  width: auto;
+  background-color: $dark-grey-color;
+
+    .topHeaderBlock {
+        display: flex;
+        align-items: center;
+        padding: 0px 20px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .shopTitle {
+            width: max-content;
+            font-family: $primary-font;
+            color: white;
+            user-select: none;
+        }
+
+        .headerTopRight {
+          .headerTopMenu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            list-style: none;
+            gap: 15px;
+
+            .headerTopMenuElement {
+              height: max-content;
+              font-family: $secondary-font;
+              font-weight: 500;
+              color: $light-grey-color;
+              transition: 0.2s ease-in-out;
+
+              &:hover {
+                color: $yantar-color;
+                cursor: pointer;
+              }
+            }
+
+            .searchForm {
+              max-height: 40px;
+              display: flex;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              align-items: center;
+              background-color: $dark-grey-color;
+              border: 1px solid $light-grey-color;
+              border-radius: 30px;
+              color: $light-grey-color;
+              padding-right: 1px;
+                
+              .searchBar {
+                background: transparent;
+                border: none;
+                color: $light-grey-color;
+                padding: 10px 15px;
+                outline: none;
+                font-size: 16px;
+                width: 200px;
+                      
+                &::placeholder {
+                  color: #7a7a7a;
+                }
+              }
+                
+              .searchButton {
+                background-color: #ffc600;
+                border: none;
+                border-radius: 20px;
+                padding: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                
+                &:hover {
+                  background-color: #e0b300;
+                }
+                
+                .searchIcon {
+                  width: 16px;
+                  height: 16px;
+                }
+              }
+            }
+          }
+        }
+
+        .mobileMenuButton {
+          display: none;
+          background-color: transparent;
+          border: none;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }        
+    }
+
+    .mobileMenu {
+      background-color: $dark-grey-color;
+      padding: 20px;
+      margin-left: 0;
+
+      .mobileMenuList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        list-style: none;
+        gap: 15px;
+        padding: 0;
+
+        .mobileMenuElement {
+          height: max-content;
+          font-family: $secondary-font;
+          font-weight: 500;
+          color: $light-grey-color;
+          transition: 0.2s ease-in-out;
+
+          &:hover {
+            color: $yantar-color;
+            cursor: pointer;
+          }
+        }
+
+        .searchForm {
+          max-height: 40px;
+          display: flex;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          align-items: center;
+          background-color: $dark-grey-color;
+          border: 1px solid $light-grey-color;
+          border-radius: 30px;
+          color: $light-grey-color;
+          padding-right: 1px;
+            
+          .searchBar {
+            background: transparent;
+            border: none;
+            color: $light-grey-color;
+            padding: 10px 15px;
+            outline: none;
+            font-size: 16px;
+            width: 200px;
+                  
+            &::placeholder {
+              color: $light-grey-color;
+            }
+          }
+            
+          .searchButton {
+            background-color: #ffc600;
+            border: none;
+            border-radius: 20px;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            
+            &:hover {
+              background-color: #e0b300;
+            }
+            
+            .searchIcon {
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+      }
+    }
+
+    @media only screen and (min-width: 800px) {
+      .mobileMenu {
+        display: none !important;
+      } 
+    }
+     
+    @media only screen and (max-width: 800px) {
+      .mobileMenuButton {
+        display: block !important;
+      } 
+
+      .headerTopRight {
+        display: none;
+      }
+    }
+}
+
 main {
     font-family: $secondary-font;
     font-weight: 500;
+    z-index: 1;
+    padding: 30px 0px;
 
     .topMainUrl {
         margin-top: 2em;
@@ -77,4 +287,32 @@ main {
             font-size: 1.5em;
         }
     }
+}
+
+footer {
+    margin-top: 5vw;
+    width: 100%;
+    height: 10vw;
+    background-color: $dark-grey-color;
+    font-family: $secondary-font;
+
+    .footerBox {
+        display: flex;
+    }
+
+    .footerInfo {
+        color: white;
+        display: flex;
+        flex-direction: column;
+        margin-left: 5vw;
+    }
+
+    .footerNumber {
+        margin-top: 3vw;
+    }
+
+    .footerText {
+        margin-top: 1vw;
+    }
+
 }
