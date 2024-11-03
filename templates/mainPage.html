@@ -33,7 +33,7 @@
                         <li class='headerTopMenuElement' id='search'>
                             <search>
                                 <form class="searchForm" action="./search/">
-                                    <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
+                                    <input class="searchBar" type="search" id="products" name="q" placeholder="Поиск" />
                                     <button type="submit" class="searchButton">
                                         <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                                     </button>
@@ -52,7 +52,7 @@
                     <li class='mobileMenuElement' id='search'>
                         <search>
                             <form class="searchForm" action="./search/">
-                                <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
+                                <input class="searchBar" type="search" id="products" name="q" placeholder="Поиск" />
                                 <button type="submit" class="searchButton">
                                     <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                                 </button>
@@ -102,6 +102,15 @@
                     {% endfor %}
                 </ul>
             </nav>
+            <div class="productsBox">
+                {% for products in products %}
+                    <div class="product">
+                        <img src="{{ products.images.first.image.url }}" alt="{{ products.name }} Image">
+                        <h3>{{ products.name }}</h3>
+                        <span>{{ products.price }} ТГ</span>
+                    </div>
+                {% endfor %}
+            </div>
         </main>
         <footer>
 
