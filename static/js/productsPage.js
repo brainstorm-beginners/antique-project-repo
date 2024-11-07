@@ -47,8 +47,6 @@ function checkScrollPosition() {
   const footer = document.querySelector('footer');
   const isLargeScreen = window.innerWidth > 768;
 
-  console.log(scrollPosition, documentHeight)
-
   if (isLargeScreen || scrollPosition + 1 >= documentHeight) {
     footer.style.visibility = 'visible';  
     footer.style.height = '40px';         
