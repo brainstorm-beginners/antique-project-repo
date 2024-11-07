@@ -34,24 +34,28 @@ function changePage(newPage) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    const mobileMenuButton = document.getElementById('mobileMenuButton');
-    const mobileMenu = document.querySelector('.mobileMenu');
-    const mobileMenuButtonImg = document.querySelector('.mobileMenuButtonIcon');
+  const mobileMenuButton = document.getElementById('mobileMenuButton');
+  const mobileMenu = document.querySelector('.mobileMenu');
+  const mobileMenuButtonImg = document.querySelector('.mobileMenuButtonIcon');
 
-    // Убедимся, что иконка открытого меню совпадает с изначальной
-    mobileMenuButtonImg.src = openMobileMenuIcon;
+  // Получаем значения атрибутов data-* из HTML
+  const openMobileMenuIcon = mobileMenuButtonImg.getAttribute('data-open-icon');
+  const closeMobileMenuIcon = mobileMenuButtonImg.getAttribute('data-close-icon');
 
-    mobileMenuButton.addEventListener('click', () => {
-        // Показываем или скрываем меню
-        mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+  // Изначально устанавливаем иконку как иконку открытого меню
+  mobileMenuButtonImg.src = openMobileMenuIcon;
 
-        // Переключаем иконку, исходя из текущего состояния меню
-        if (mobileMenuButtonImg.src === openMobileMenuIcon) {
-            mobileMenuButtonImg.src = closeMobileMenuIcon;
-        } else {
-            mobileMenuButtonImg.src = openMobileMenuIcon;
-        }
-    });
+  mobileMenuButton.addEventListener('click', () => {
+      // Показываем или скрываем меню
+      mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+
+      // Переключаем иконку, исходя из текущего состояния меню
+      if (mobileMenuButtonImg.src.endsWith(openMobileMenuIcon)) {
+          mobileMenuButtonImg.src = closeMobileMenuIcon;
+      } else {
+          mobileMenuButtonImg.src = openMobileMenuIcon;
+      }
+  });
 
   const dropdownCategories = document.querySelectorAll(".category__dropdown");
   const categories = document.querySelectorAll(".category, .subcategory, .category__dropdown");

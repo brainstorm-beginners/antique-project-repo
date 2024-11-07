@@ -10,8 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'css/mainPage/mainPage.css' %}">
         <script type="text/javascript">
-            const closeMobileMenuIcon = "http://localhost:8000/{% static 'icons/closeMobileMenuIcon.png' %}";
-            const openMobileMenuIcon = "http://localhost:8000{% static 'icons/menuIconLightGrey.png' %}";
+            const openMobileMenuIcon = "{% static '\icons\menuIconLightGrey.png' %}";
+            const closeMobileMenuIcon = "{% static '\icons\closeMobileMenuIcon.png' %}";
             const totalPages = {{ total_pages }};
             let currentPage = {{ page_obj.number }};
         </script>
@@ -36,7 +36,7 @@
                         </li>
                         <li class='headerTopMenuElement' id='search'>
                             <search>
-                                <form class="searchForm" action="./search/">
+                                <form class="searchForm" action="{% url 'search_results' %}">
                                     <input class="searchBar" type="search" id="products" name="q" placeholder="Поиск" />
                                     <button type="submit" class="searchButton">
                                         <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
@@ -47,7 +47,7 @@
                     </ul>
                 </nav>   
                 <button id="mobileMenuButton" class="mobileMenuButton">
-                    <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" />
+                    <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" data-open-icon="{% static 'icons/menuIconLightGrey.png' %}" data-close-icon="{% static 'icons/closeMobileMenuIcon.png' %}" />
                 </button>
             </div>
             
@@ -55,13 +55,13 @@
                 <ul class='mobileMenuList'>
                     <li class='mobileMenuElement' id='search'>
                         <search>
-                            <form class="searchForm" action="{% url 'search_results' %}" method="get">
+                            <form class="searchForm" action="{% url 'search_results' %}">
                                 <input class="searchBar" type="search" id="products" name="q" placeholder="Поиск" />
                                 <button type="submit" class="searchButton">
                                     <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                                 </button>
-                            </form>                            
-                        </search>
+                            </form>
+                        </search>   
                     </li>
                     <li class='mobileMenuElement' id='contacts'>Контакты</li>
                     <li class='mobileMenuElement' id='phoneNumber'>+7 (777) 000 56 95</li>

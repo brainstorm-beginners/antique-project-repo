@@ -38,7 +38,11 @@ window.addEventListener("DOMContentLoaded", () => {
     const mobileMenu = document.querySelector('.mobileMenu');
     const mobileMenuButtonImg = document.querySelector('.mobileMenuButtonIcon');
 
-    // Убедимся, что иконка открытого меню совпадает с изначальной
+    // Получаем значения атрибутов data-* из HTML
+    const openMobileMenuIcon = mobileMenuButtonImg.getAttribute('data-open-icon');
+    const closeMobileMenuIcon = mobileMenuButtonImg.getAttribute('data-close-icon');
+
+    // Изначально устанавливаем иконку как иконку открытого меню
     mobileMenuButtonImg.src = openMobileMenuIcon;
 
     mobileMenuButton.addEventListener('click', () => {
@@ -46,11 +50,9 @@ window.addEventListener("DOMContentLoaded", () => {
         mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
 
         // Переключаем иконку, исходя из текущего состояния меню
-        if (mobileMenuButtonImg.src === openMobileMenuIcon) {
+        if (mobileMenuButtonImg.src.endsWith(openMobileMenuIcon)) {
             mobileMenuButtonImg.src = closeMobileMenuIcon;
         } else {
-          console.log("OUR VARIABLE:" + openMobileMenuIcon);
-          console.log("SRC:" + mobileMenuButtonImg.src);
             mobileMenuButtonImg.src = openMobileMenuIcon;
         }
     });

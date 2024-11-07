@@ -8,8 +8,8 @@
         <link rel="stylesheet" href="{% static 'css/productsPage/productsPage.css' %}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript">
-            const closeMobileMenuIcon = "{% static 'icons/closeMobileMenuIcon.png' %}";
-            const openMobileMenuIcon = "{% static 'icons/menuIconLightGrey.png' %}";
+            const openMobileMenuIcon = "{% static '\icons\menuIconLightGrey.png' %}";
+            const closeMobileMenuIcon = "{% static '\icons\closeMobileMenuIcon.png' %}";
             const totalPages = {{ total_pages }};
             let currentPage = {{ page_obj.number }};
         </script>
@@ -45,7 +45,7 @@
                     </ul>
                 </nav>   
                 <button id="mobileMenuButton" class="mobileMenuButton">
-                    <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" />
+                    <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" data-open-icon="{% static 'icons/menuIconLightGrey.png' %}" data-close-icon="{% static 'icons/closeMobileMenuIcon.png' %}" />
                 </button>
             </div>
             
@@ -53,13 +53,13 @@
                 <ul class='mobileMenuList'>
                     <li class='mobileMenuElement' id='search'>
                         <search>
-                            <form class="searchForm" action="./search/">
-                                <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
+                            <form class="searchForm" action="{% url 'search_results' %}">
+                                <input class="searchBar" type="search" id="products" name="q" placeholder="Поиск" />
                                 <button type="submit" class="searchButton">
                                     <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                                 </button>
                             </form>
-                        </search>
+                        </search>   
                     </li>
                     <li class='mobileMenuElement' id='contacts'>Контакты</li>
                     <li class='mobileMenuElement' id='phoneNumber'>+7 (702) 444 49 99</li>

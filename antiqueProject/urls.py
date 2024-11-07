@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls.static import static
+from django.shortcuts import redirect
 from django.urls import path
 from catalog.views import product_page, main_page, products_page, search_results
 
@@ -23,6 +24,7 @@ from antiqueProject import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', lambda request: redirect('home', permanent=True)),
     path('home/', main_page, name='home'),
     path('home/category/<slug:category_slug>/product/<slug:product_slug>/', product_page, name='product_page'),
     path('home/category/<slug:category_slug>/', products_page, name='products_page'),

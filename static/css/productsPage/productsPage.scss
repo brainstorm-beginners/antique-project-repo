@@ -433,7 +433,8 @@ main {
   .noSearchResultsMessage {
     font-family: $secondary-font;
     color: black;
-    margin-left: 26%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .productsBox {

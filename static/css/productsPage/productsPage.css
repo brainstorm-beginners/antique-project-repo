@@ -391,7 +391,8 @@ main .categoryNavSide .categoriesMenu .subcategoriesMenu .subcategory:hover {
 main .noSearchResultsMessage {
   font-family: "Montserrat", sans-serif;
   color: black;
-  margin-left: 26%;
+  margin-left: auto;
+  margin-right: auto;
 }
 main .productsBox {
   flex: 1;
