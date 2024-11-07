@@ -374,15 +374,20 @@ main .productsBox {
   font-family: "Montserrat", sans-serif;
 }
 main .product {
-  width: 100%;
+  width: -moz-max-content;
+  width: max-content;
   margin-right: 20px;
   float: left;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-main .product h3 {
-  width: 17.2em;
+main .product .productText {
+  align-self: start;
+}
+main .product .productText h3 {
+  width: -moz-fit-content;
+  width: fit-content;
   margin: 0.5em 0 0.5em 0;
 }
 main .product span {
@@ -390,12 +395,16 @@ main .product span {
   color: #b3b3b3;
   font-weight: 500;
 }
-main .product img {
+main .product a img {
   -o-object-fit: cover;
      object-fit: cover;
   height: 20em;
   width: 20em;
   border-radius: 1em;
+  transition: transform 0.3s ease-in-out;
+}
+main .product a img:hover {
+  transform: scale(1.05);
 }
 main .product:last-child {
   margin-right: 0;

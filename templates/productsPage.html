@@ -18,14 +18,13 @@
 <body>
     <header>
         <div class='topHeaderBlock'>
-            <h1 class='shopTitle'>Ретро-лавка</h1>
+            <h1 class='shopTitle'>
+                <a href="{% url 'home' %}">Ретро-лавка</a>
+            </h1>
             <nav class='headerTopRight'>
                 <ul class='headerTopMenu'>
-                    <li class='headerTopMenuElement' id='aboutShop'>
-                        О лавке
-                    </li>
                     <li class='headerTopMenuElement' id='contacts'>
-                        Контакты
+                        <a href="{% url 'contact_page' %}">Контакты</a>
                     </li>
                     <li class='headerTopMenuElement' id='phoneNumber'>
                         +7 (702) 444 49 99
@@ -85,8 +84,14 @@
             </div>
         </nav>
     </header>
-        <div class="topMainUrl">
-            <span class="topMainText">Главная / Каталог / {{ product.category.name }}</span>
+        <div class="topMainUrlSort">
+            <span class="topMainText">Главная / Каталог / {{ selected_category.name }}</span>
+            <span class="topMainSort">
+                <a href="?sort=price_asc" class="{% if sort == 'price_asc' %}active{% endif %}">Сначала дешевле</a>
+                <a href="?sort=price_desc" class="{% if sort == 'price_desc' %}active{% endif %}">Сначала дороже</a>
+                <a href="?sort=date_old" class="{% if sort == 'date_old' %}active{% endif %}">Сначала старые</a>
+                <a href="?sort=date_new" class="{% if sort == 'date_new' %}active{% endif %}">Сначала новые</a>
+            </span>
         </div>
     <main>
         <nav class="categoryNavSide">
@@ -108,11 +113,13 @@
         <div class="productsBox">
             {% for products in product %}
                 <div class="product">
-                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}">
+                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}" class="productImg">
                         <img src="{{ products.images.first.image.url }}" alt="{{ products.name }} Image">
-                        <h3>{{ products.name }}</h3>
-                        <span>{{ products.price }} ТГ</span>
                     </a>
+                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}" class="productText">
+                        <h3>{{ products.name }}</h3>
+                    </a>
+                    <span>{{ products.price|floatformat:0}} ТГ</span>
                 </div>
             {% endfor %}
         </div>

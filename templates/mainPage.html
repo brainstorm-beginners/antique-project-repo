@@ -21,14 +21,11 @@
                 <h1 class='shopTitle'>Ретро-лавка</h1>
                 <nav class='headerTopRight'>
                     <ul class='headerTopMenu'>
-                        <li class='headerTopMenuElement' id='aboutShop'>
-                            О лавке
-                        </li>
                         <li class='headerTopMenuElement' id='contacts'>
-                            Контакты
+                            <a href="{% url 'contact_page' %}">Контакты</a>
                         </li>
                         <li class='headerTopMenuElement' id='phoneNumber'>
-                            +7 (777) 000 56 95
+                            +7 (702) 444 49 99
                         </li>
                         <li class='headerTopMenuElement' id='search'>
                             <search>
@@ -59,9 +56,10 @@
                             </form>
                         </search>
                     </li>
-                    <li class='mobileMenuElement' id='contacts'>Контакты</li>
+                    <li class='mobileMenuElement' id='contacts'>
+                        <a href="{% url 'contact_page' %}">Контакты</a>
+                    </li>
                     <li class='mobileMenuElement' id='phoneNumber'>+7 (777) 000 56 95</li>
-                    <li class='mobileMenuElement' id='about'>О лавке</li>
                 </ul>
 
                 <!-- Меню категорий для мобильной версии -->
@@ -105,14 +103,16 @@
             <div class="productsBox">
             {% for products in products %}
                 <div class="product">
-                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}">
+                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}" class="ProductImg">
                         <img src="{{ products.images.first.image.url }}" alt="{{ products.name }} Image">
-                        <h3>{{ products.name }}</h3>
-                        <span>{{ products.price }} ТГ</span>
                     </a>
-                </div>
+                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}" class="productText">
+                        <h3>{{ products.name }}</h3>
+                    </a>
+                    <span>{{ products.price|floatformat:0 }} ТГ</span>
+                </div> 
             {% endfor %}
-        </div>
+            </div>
         </main>
         <footer>
 

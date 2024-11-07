@@ -308,11 +308,39 @@ header {
     }
 }
 
-.topMainUrl {
+.topMainUrlSort {
     display: flex;
+    flex-direction: row;
     padding: 2em 0 0 2em;
     font-family: $secondary-font;
     align-items: center;
+
+    .topMainSort {
+      display: flex;
+      padding: 0 10vh;
+      gap: 1em;
+    }
+
+    .topMainSort a.active {
+      color: #4169E1; 
+      font-weight: bold;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .topMainUrlSort {
+    flex-direction: column;
+    gap: 2vh;
+    padding: 2em 1em 0 1em;
+  }
+
+  .topMainSort {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: max-content;
+    padding: 0 !important;
+  }
 }
 
 main {
@@ -423,12 +451,20 @@ main {
   }
 
   .product {
-    width: 100%;
+    width: max-content;
     margin-right: 20px;
     float: left;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .productText {
+      align-self: start;
+      h3 {
+        width: fit-content;
+        margin: 0.5em 0 0.5em 0; 
+      }
+    }
 
     h3 {
       width: 17.2em;
@@ -441,12 +477,20 @@ main {
       font-weight: 500;
     }
 
-    img {
+    a {  
+      img {
         object-fit: cover;
         height: 20em;
         width: 20em;
         border-radius: 1em;
+        transition: transform 0.3s ease-in-out;
+    
+        &:hover {
+            transform: scale(1.05);
+        }
+      }
     }
+  
 
     &:last-child {
       margin-right: 0;

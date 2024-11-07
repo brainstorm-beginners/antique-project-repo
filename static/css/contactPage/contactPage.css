@@ -1,8 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Marck+Script&family=Rampart+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-body {
+body, html {
   margin: 0 !important;
   padding: 0;
+  height: 100%;
 }
 
 a {
@@ -208,8 +209,8 @@ main .contactBox {
   flex-direction: row;
 }
 main .contactMap {
-  width: 31.25em;
-  height: 25em;
+  width: 35vw;
+  height: 26vw;
 }
 main #map {
   width: 100%;
@@ -235,20 +236,24 @@ main .contactSchedule {
 main .contactaddress {
   margin-top: 2em;
 }
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   main .topMainUrl {
     margin-left: 1em;
+    margin-bottom: 1em;
+    margin-top: 0;
   }
   main .contactBox {
-    margin-left: 1em;
+    margin: 0;
     flex-direction: column;
     align-items: center;
   }
   main .contactMap {
+    width: 90%;
+    height: 50vw;
     margin-top: 2em;
   }
   main .contactInfo {
-    margin: 0;
+    margin: 0 4vw;
     order: -1;
   }
   main h1 {
@@ -259,9 +264,10 @@ main .contactaddress {
 footer {
   margin-top: 5vw;
   width: 100%;
-  height: 10vw;
   background-color: #2e2e2e;
   font-family: "Montserrat", sans-serif;
+  bottom: 0;
+  position: absolute;
 }
 footer .footerBox {
   display: flex;
@@ -271,10 +277,11 @@ footer .footerInfo {
   display: flex;
   flex-direction: column;
   margin-left: 5vw;
+  gap: 2vw;
 }
 footer .footerNumber {
-  margin-top: 3vw;
+  margin-top: 2vw;
 }
 footer .footerText {
-  margin-top: 1vw;
+  margin-bottom: 2vw;
 }/*# sourceMappingURL=contactPage.css.map */

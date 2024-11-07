@@ -279,13 +279,38 @@ header .mobileMenu .mobileCategoryNavSide .mobileCategoriesMenu .mobileSubcatego
   }
 }
 
-.topMainUrl {
+.topMainUrlSort {
   display: flex;
+  flex-direction: row;
   padding: 2em 0 0 2em;
   font-family: "Montserrat", sans-serif;
   align-items: center;
 }
+.topMainUrlSort .topMainSort {
+  display: flex;
+  padding: 0 10vh;
+  gap: 1em;
+}
+.topMainUrlSort .topMainSort a.active {
+  color: #4169E1;
+  font-weight: bold;
+}
 
+@media only screen and (max-width: 800px) {
+  .topMainUrlSort {
+    flex-direction: column;
+    gap: 2vh;
+    padding: 2em 1em 0 1em;
+  }
+  .topMainSort {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    padding: 0 !important;
+  }
+}
 main {
   display: flex;
   z-index: 1;
@@ -381,12 +406,21 @@ main .productsBox {
   font-family: "Montserrat", sans-serif;
 }
 main .product {
-  width: 100%;
+  width: -moz-max-content;
+  width: max-content;
   margin-right: 20px;
   float: left;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+main .product .productText {
+  align-self: start;
+}
+main .product .productText h3 {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0.5em 0 0.5em 0;
 }
 main .product h3 {
   width: 17.2em;
@@ -397,12 +431,16 @@ main .product span {
   color: #b3b3b3;
   font-weight: 500;
 }
-main .product img {
+main .product a img {
   -o-object-fit: cover;
      object-fit: cover;
   height: 20em;
   width: 20em;
   border-radius: 1em;
+  transition: transform 0.3s ease-in-out;
+}
+main .product a img:hover {
+  transform: scale(1.05);
 }
 main .product:last-child {
   margin-right: 0;
