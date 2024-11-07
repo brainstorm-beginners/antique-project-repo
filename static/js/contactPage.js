@@ -25,6 +25,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   const menuIcon = '../static/icons/menuIconLightGrey.png';
   const closeIcon = '../static/icons/closeMobileMenuIcon.png';
 
+  checkScrollPosition()
   window.addEventListener('scroll', checkScrollPosition);
   window.addEventListener('resize', checkScrollPosition);
 

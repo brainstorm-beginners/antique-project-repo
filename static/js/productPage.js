@@ -242,6 +242,7 @@ function setSelectedCategory(categoryName) {
         indicatorsContainer.style.display = 'none';
     }
 
+    checkScrollPosition()
     window.addEventListener('scroll', checkScrollPosition);
     window.addEventListener('resize', checkScrollPosition);
     

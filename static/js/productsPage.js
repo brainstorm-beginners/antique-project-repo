@@ -73,6 +73,9 @@ window.addEventListener("DOMContentLoaded", () => {
   mobileMenuButtonImg.src = openMobileMenuIcon;
 
   checkScrollPosition()
+  window.addEventListener('scroll', checkScrollPosition);
+  window.addEventListener('resize', checkScrollPosition);
+
 
   mobileMenuButton.addEventListener('click', () => {
       // Показываем или скрываем меню

@@ -63,6 +63,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // Изначально устанавливаем иконку как иконку открытого меню
     mobileMenuButtonImg.src = openMobileMenuIcon;
 
+    checkScrollPosition()
     window.addEventListener('scroll', checkScrollPosition);
     window.addEventListener('resize', checkScrollPosition);
 
