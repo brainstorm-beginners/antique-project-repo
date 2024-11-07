@@ -2,42 +2,89 @@ function setSelectedCategory(categoryName) {
   localStorage.setItem("selectedCategory", categoryName);
 }
 
-function getSelectedCategory() {
-  return localStorage.getItem("selectedCategory");
-}
+function renderPagination() {
+        const paginationContainer = document.getElementById("pagination-pages");
+        paginationContainer.innerHTML = ''; // Очистим старые страницы
 
-// Функция выделения выбранной категории
-function highlightSelectedCategory() {
-  const selectedCategory = getSelectedCategory();
-  const categories = document.querySelectorAll(".category, .subcategory, .category__dropdown");
-  categories.forEach((category) => {
-    if (category.textContent.trim() === selectedCategory) {
-      category.classList.add("selected");
-    } else {
-      category.classList.remove("selected");
+        // Определяем начальную и конечную страницу для отображения
+        const startPage = Math.max(1, currentPage - 2);
+        const endPage = Math.min(totalPages, startPage + 5);
+
+        // Генерируем кнопки страниц
+        for (let page = startPage; page <= endPage; page++) {
+            const button = document.createElement("button");
+            button.className = "pagination__page";
+            button.innerText = page.toString();
+            button.onclick = () => changePage(page);
+
+            // Добавляем активный класс для текущей страницы
+            if (page === currentPage) {
+                button.classList.add("active");
+            }
+            paginationContainer.appendChild(button);
+        }
     }
-  });
+
+  function changePage(newPage) {
+    if (newPage < 1 || newPage > totalPages) return;  // Проверка допустимого диапазона
+
+    currentPage = newPage;
+    renderPagination();
+
+    // Получаем текущий URL и параметры
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Устанавливаем новый номер страницы
+    urlParams.set('page', newPage);
+
+    // Формируем новый URL с сохраненными параметрами и устанавливаем его
+    window.location.href = `${window.location.pathname}?${urlParams.toString()}`;
+}  
+function checkScrollPosition() {
+  const scrollPosition = window.scrollY + window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+  
+  const footer = document.querySelector('footer');
+  const isLargeScreen = window.innerWidth > 768;
+
+  console.log(scrollPosition, documentHeight)
+
+  if (isLargeScreen || scrollPosition + 1 >= documentHeight) {
+    footer.style.visibility = 'visible';  
+    footer.style.height = '40px';         
+    footer.style.opacity = '1';          
+  } else {
+    footer.style.visibility = 'hidden';   
+    footer.style.height = '0px';         
+    footer.style.opacity = '0';         
+  }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
   const mobileMenuButton = document.getElementById('mobileMenuButton');
-    const mobileMenu = document.querySelector('.mobileMenu');
-    const mobileMenuButtonImg = document.querySelector('.mobileMenuButtonIcon');
+  const mobileMenu = document.querySelector('.mobileMenu');
+  const mobileMenuButtonImg = document.querySelector('.mobileMenuButtonIcon');
 
-    // Убедимся, что иконка открытого меню совпадает с изначальной
-    mobileMenuButtonImg.src = openMobileMenuIcon;
+  // Получаем значения атрибутов data-* из HTML
+  const openMobileMenuIcon = mobileMenuButtonImg.getAttribute('data-open-icon');
+  const closeMobileMenuIcon = mobileMenuButtonImg.getAttribute('data-close-icon');
 
-    mobileMenuButton.addEventListener('click', () => {
-        // Показываем или скрываем меню
-        mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+  // Изначально устанавливаем иконку как иконку открытого меню
+  mobileMenuButtonImg.src = openMobileMenuIcon;
 
-        // Переключаем иконку, исходя из текущего состояния меню
-        if (mobileMenuButtonImg.src === openMobileMenuIcon) {
-            mobileMenuButtonImg.src = closeMobileMenuIcon;
-        } else {
-            mobileMenuButtonImg.src = openMobileMenuIcon;
-        }
-    });
+  checkScrollPosition()
+
+  mobileMenuButton.addEventListener('click', () => {
+      // Показываем или скрываем меню
+      mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+
+      // Переключаем иконку, исходя из текущего состояния меню
+      if (mobileMenuButtonImg.src.endsWith(openMobileMenuIcon)) {
+          mobileMenuButtonImg.src = closeMobileMenuIcon;
+      } else {
+          mobileMenuButtonImg.src = openMobileMenuIcon;
+      }
+  });
 
   const dropdownCategories = document.querySelectorAll(".category__dropdown");
   const categories = document.querySelectorAll(".category, .subcategory, .category__dropdown");
@@ -123,4 +170,6 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  renderPagination();  // Первичная отрисовка пагинации
 });

@@ -1,24 +1,54 @@
-console.log("TEST")
+function checkScrollPosition() {
+  const scrollPosition = window.scrollY + window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+  
+  const footer = document.querySelector('footer');
+  const isLargeScreen = window.innerWidth > 768;
+
+  if (isLargeScreen || scrollPosition + 0.5 >= documentHeight) {
+    footer.style.visibility = 'visible';  
+    footer.style.height = '40px';         
+    footer.style.opacity = '1';          
+  } else {
+    footer.style.visibility = 'hidden';   
+    footer.style.height = '0px';         
+    footer.style.opacity = '0';         
+  }
+}
 
 function setSelectedCategory(categoryName) {
   localStorage.setItem("selectedCategory", categoryName);
 }
 
-function getSelectedCategory() {
-  return localStorage.getItem("selectedCategory");
-}
+function renderPagination() {
+        const paginationContainer = document.getElementById("pagination-pages");
+        paginationContainer.innerHTML = ''; // Очистим старые страницы
 
-// Функция выделения выбранной категории
-function highlightSelectedCategory() {
-  const selectedCategory = getSelectedCategory();
-  const categories = document.querySelectorAll(".category, .subcategory, .category__dropdown");
-  categories.forEach((category) => {
-    if (category.textContent.trim() === selectedCategory) {
-      category.classList.add("selected");
-    } else {
-      category.classList.remove("selected");
+        // Определяем начальную и конечную страницу для отображения
+        const startPage = Math.max(1, currentPage - 2);
+        const endPage = Math.min(totalPages, startPage + 5);
+
+        // Генерируем кнопки страниц
+        for (let page = startPage; page <= endPage; page++) {
+            const button = document.createElement("button");
+            button.className = "pagination__page";
+            button.innerText = page.toString();
+            button.onclick = () => changePage(page);
+
+            // Добавляем активный класс для текущей страницы
+            if (page === currentPage) {
+                button.classList.add("active");
+            }
+            paginationContainer.appendChild(button);
+        }
     }
-  });
+
+function changePage(newPage) {
+    if (newPage < 1 || newPage > totalPages) return;  // Проверка допустимого диапазона
+
+    currentPage = newPage;
+    renderPagination();
+    window.location.href = `?page=${newPage}`;  // Переход на новую страницу
 }
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -26,15 +56,22 @@ window.addEventListener("DOMContentLoaded", () => {
     const mobileMenu = document.querySelector('.mobileMenu');
     const mobileMenuButtonImg = document.querySelector('.mobileMenuButtonIcon');
 
-    // Убедимся, что иконка открытого меню совпадает с изначальной
+    // Получаем значения атрибутов data-* из HTML
+    const openMobileMenuIcon = mobileMenuButtonImg.getAttribute('data-open-icon');
+    const closeMobileMenuIcon = mobileMenuButtonImg.getAttribute('data-close-icon');
+
+    // Изначально устанавливаем иконку как иконку открытого меню
     mobileMenuButtonImg.src = openMobileMenuIcon;
+
+    window.addEventListener('scroll', checkScrollPosition);
+    window.addEventListener('resize', checkScrollPosition);
 
     mobileMenuButton.addEventListener('click', () => {
         // Показываем или скрываем меню
         mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
 
         // Переключаем иконку, исходя из текущего состояния меню
-        if (mobileMenuButtonImg.src === openMobileMenuIcon) {
+        if (mobileMenuButtonImg.src.endsWith(openMobileMenuIcon)) {
             mobileMenuButtonImg.src = closeMobileMenuIcon;
         } else {
             mobileMenuButtonImg.src = openMobileMenuIcon;
@@ -125,4 +162,6 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  renderPagination();
 });

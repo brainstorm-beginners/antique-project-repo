@@ -7,11 +7,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Антикварная лавка</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="{% static 'css/productPage/productPage.css' %}">
         <script type="text/javascript">
-            const closeMobileMenuIcon = "{% static 'icons/closeMobileMenuIcon.png' %}";
-            const openMobileMenuIcon = "{% static 'icons/menuIconLightGrey.png' %}";
+            const openMobileMenuIcon = "{% static '\icons\menuIconLightGrey.png' %}";
+            const closeMobileMenuIcon = "{% static '\icons\closeMobileMenuIcon.png' %}";
+            const productName = "{{ product.name }}"
         </script>
         <script src="{% static 'js/productPage.js' %}"></script>
     </head>
@@ -19,22 +20,19 @@
     <header>
         <div class='topHeaderBlock'>
             <h1 class='shopTitle'>
-            <a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">Ретро-лавка</a>  <!-- Добавлено оборачивание в тег <a> -->
+                <a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">Ретро-лавка</a> 
             </h1>
             <nav class='headerTopRight'>
                 <ul class='headerTopMenu'>
-                    <li class='headerTopMenuElement' id='aboutShop'>
-                        О лавке
-                    </li>
                     <li class='headerTopMenuElement' id='contacts'>
-                        Контакты
+                        <a href="{% url 'contact_page' %}">Контакты</a>
                     </li>
                     <li class='headerTopMenuElement' id='phoneNumber'>
                         +7 (702) 444 49 99
                     </li>
                     <li class='headerTopMenuElement' id='search'>
                         <search>
-                            <form class="searchForm" action="./search/">
+                            <form class="searchForm" action="{% url 'search_results' %}">
                                 <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
                                 <button type="submit" class="searchButton">
                                     <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
@@ -45,7 +43,7 @@
                 </ul>
             </nav>   
             <button id="mobileMenuButton" class="mobileMenuButton">
-                <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" />
+                <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" data-open-icon="{% static 'icons/menuIconLightGrey.png' %}" data-close-icon="{% static 'icons/closeMobileMenuIcon.png' %}" />
             </button>
         </div>
         
@@ -53,20 +51,20 @@
             <ul class='mobileMenuList'>
                 <li class='mobileMenuElement' id='search'>
                     <search>
-                        <form class="searchForm" action="./search/">
-                            <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
+                        <form class="searchForm" action="{% url 'search_results' %}">
+                            <input class="searchBar" type="search" id="products" name="q" placeholder="Поиск" />
                             <button type="submit" class="searchButton">
                                 <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                             </button>
                         </form>
-                    </search>
+                    </search>   
                 </li>
-                <li class='mobileMenuElement' id='contacts'>Контакты</li>
+                <li class='mobileMenuElement' id='contacts'>
+                    <a href="{% url 'contact_page' %}">Контакты</a>
+                </li>
                 <li class='mobileMenuElement' id='phoneNumber'>+7 (702) 444 49 99</li>
-                <li class='mobileMenuElement' id='about'>О лавке</li>
             </ul>
 
-            <!-- Меню категорий для мобильной версии -->
             <div class='mobileCategoryNavSide'>
                 <ul class='mobileCategoriesMenu'>
                     {% for category in root_categories %}
@@ -87,58 +85,68 @@
             </div>
         </nav>
     </header>
+    <span class="topMainUrl">
+        <a href="/home/">Главная&nbsp;</a> /
+        <a href="/home/category/{{ product.category.slug }}">&nbsp;{{ product.category.name }}&nbsp;</a>/ {{ product.name }}
+    </span>
     <main>
         <div class="wrapperContainer">
-            <div class="topMainUrl">
-                <span class="topMainText">Главная / Каталог / {{ product.category.name }} / {{ product.name }}</span>
-            </div>
-            <div class="productTitle">
-                <div class="productImage">
-                    <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}">
-                </div>
-                <div class="productInfo">
-                    <div class="productPrice">
-                        <h2 class="price">{{ product.price }} ТГ</h2>
-                    </div>
-                    <div class="productName">
-                        <h1 class="name">{{ product.name }}</h1>
-                    </div>
-                    <div class="productDescription">
-                        <span class="description">{{ product.description }}</span>
-                    </div>
-                    <div class="shareSection">
-                        <span class="shareText">Поделиться ссылкой на товар:</span>
-                        <div class="shareIcons">
-                            <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}" target="_blank" class="shareIcon telegram" aria-label="Telegram">
-                                <img src="{% static 'icons/icons8-telegram-app.svg' %}" alt="Telegram">
-                            </a>
-                            <a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank" class="shareIcon whatsapp" aria-label="WhatsApp">
-                                <img src="{% static 'icons/icons8-whatsapp.svg' %}" alt="WhatsApp">
-                            </a>
-                            <a href="https://vk.com/share.php?url={{ request.build_absolute_uri }}" target="_blank" class="shareIcon vk" aria-label="Vk">
-                                <img src="{% static 'icons/icons8-vk.svg' %}" alt="Vk">
-                            </a>
-                            <a href="https://twitter.com/intent/tweet?text={{ request.build_absolute_uri }}" target="_blank" class="shareIcon X" aria-label="X">
-                                <img src="{% static 'icons/icons8-x.svg' %}" alt="X">
-                            </a>
-                            <button id="copyButton" class="copyButton">Скопировать ссылку</button>
+            <div class='imagesSection'>
+                <div class="sliderContainer">
+                    <div class="sliderWrapper">
+                        {% for image in product.images.all %}
+                        <div class="slide {% if forloop.first %}active{% endif %}">
+                            <img src="{{ image.image.url }}" alt="Slide {{ forloop.counter }}">
                         </div>
+                        {% endfor %}
                     </div>
-                    <div class="orderBox">
-                        <a href="https://api.whatsapp.com/send?phone=77024444999" target="_blank">
-                            <button class="orderButton">Сделать заказ по WhatsApp</button>
-                        </a>
+                    <div class="indicators">
+                        {% for image in product.images.all %}
+                        <div class="indicator {% if forloop.first %}active{% endif %}"></div>
+                        {% endfor %}
                     </div>
+                </div>                
+            </div>
+            <div class='productInfoSection'>
+                <h1 class='productPrice'>1700KZT</h1>
+                <p class='productDescription'>
+                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
+                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
+                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
+                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
+                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
+                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
+                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
+                </p>
+                <div class='socialNetworksBlock'>
+                    <ul class='socialNetworksList'>
+                        <li class='socialNetworkList__item'>
+                            <img class='socialNetworkList__item icon' src="{% static '\icons\icons8-telegram-app.svg' %}" data-network='telegram'></img>
+                        </li>
+                        <li class='socialNetworkList__item'>
+                            <img class='socialNetworkList__item icon' src="{% static '\icons\icons8-vk.svg' %}" data-network='vk'></img>
+                        </li>
+                        <li class='socialNetworkList__item'>
+                            <img class='socialNetworkList__item icon' src="{% static '\icons\icons8-whatsapp.svg' %}" data-network='whatsapp'></img>
+                        </li>
+                        <li class='socialNetworkList__item'>
+                            <img class='socialNetworkList__item icon' src="{% static '\icons\icons8-instagram.png' %}" data-network='instagram'></img>
+                        </li>
+                        <li class='socialNetworkList__item'>
+                            <img class='socialNetworkList__item icon' src="{% static '\icons\icons8-map-marker.png' %}" alt="Map" data-map='true'>
+                        </li>                        
+                    </ul>
+                    <a href="https://wa.me/+77024444999?text=Здравствуйте!%20Я%20хочу%20заказать%20товар%20%22{{ product.name | urlencode }}%22.%20Был%20перенаправлен%20с%20вашего%20сайта." class='makeOrderWhatsApp__router'>
+                        Сделать заказ в WhatsApp
+                    </a>                                                                       
                 </div>
             </div>
         </div>
     </main>
     <footer>
-        <div class="footerBox">
-            <div class="footerInfo">
-                <span class="footerNumber">+7 702 444 4999</span>
-                <a href="https://2gis.kz/almaty/geo/9430047375043681/76.982054%2C43.334925" class="footerText">Улица Монтажная, 27</a>
-            </div>
+        <div class="footerInfo">
+            <span class="footerNumber">+7 702 444 4999</span>
+            <a href="https://2gis.kz/almaty/geo/9430047375043681/76.982054%2C43.334925" class="footerText" alt="Map" data-map='true'>Улица Монтажная, 27</a>
         </div>
     </footer>
 </body>

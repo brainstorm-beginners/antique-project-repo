@@ -1,8 +1,9 @@
 @import '../variables.scss';
 
-body {
-    margin: 0 !important;
-    padding: 0;
+html, body {
+  height: auto;
+  margin: 0;
+  padding-bottom: 50px;
 }
 
 a {
@@ -208,9 +209,23 @@ header {
     }
 }
 
+.topMainUrl {
+  display: flex;
+  margin: 2em 0 0 2em;
+  font-family: $secondary-font;
+  font-size: 1em;
+  align-items: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .topMainUrl {
+    font-size: 0.8em;
+  }
+}
+
 main {
     z-index: 1;
-    padding: 30px 0px;
+    padding: 30px;
 
     .main_top {
       display: flex;
@@ -308,57 +323,190 @@ main {
         }
       }
 
-    .topMainUrl {
-        display: flex;
-        padding: 20px 0 0 0;
-        font-family: $secondary-font;
-        align-items: center;
-    }
-
     .wrapperContainer {
-        padding: 0 0 0 40px; 
-    }
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      gap: 20px;
+      box-sizing: border-box;
+  
+      .imagesSection {
+          flex: 0 0 calc(30% - 10px);
+          max-width: calc(30% - 10px);
+          min-width: 350px;
+          border-radius: 10px;
+  
+          .sliderContainer {
+              width: 100%;
+              position: relative;
+              overflow: hidden;
+              border-radius: 10px;
+              border: 1px solid $dark-grey-color;
 
-    .productTitle {
-        padding-top: 1.5vw;
-        display: flex;
-        width: 100%;
-    }
+              .sliderButton {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(0, 0, 0, 0.5);
+                color: white;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                padding: 10px;
+                z-index: 10;
+                transition: background 0.3s;
+        
+                &:hover {
+                    background: rgba(0, 0, 0, 0.8);
+                }
+              }
+          
+              .prevButton {
+                  left: 10px;
+              }
+          
+              .nextButton {
+                  right: 10px;
+              }
+  
+              .sliderWrapper {
+                height: 400px;
+                display: flex;
+                transition: transform 0.5s ease;
+                width: 100%;
+              }
+  
+              .slide {
+                  min-width: 100%;
+                  transition: opacity 0.5s ease;
+                  border-radius: 10px;
+  
+                  img {
+                      width: 100%;
+                      height: 100%;
+                      display: block;
+                      object-fit: cover;
+                      object-position: center;
+                      border-radius: 8px;
+                  }
+              }
+  
+              .indicators {
+                  display: flex;
+                  justify-content: center;
+                  position: absolute;
+                  bottom: 10px;
+                  left: 50%;
+                  transform: translateX(-50%);
+  
+                  .indicator {
+                      width: 10px;
+                      height: 10px;
+                      margin: 0 5px;
+                      background-color: #ccc;
+                      border-radius: 50%;
+                      cursor: pointer;
+                      transition: background-color 0.3s ease;
+  
+                      &.active {
+                          background-color: #333;
+                          border-radius: 8px;
+                      }
+                  }
+              }
+          }
+      }
+  
+      .productInfoSection {
+          flex: 0 0 calc(60% - 10px);
+          max-width: calc(60% - 10px);
+          min-width: 300px;
+          display: flex;
+          flex-direction: column;
+          font-family: $secondary-font;
+  
+          .productPrice {
+              margin: 0;
+              font-weight: bold;
+          }
+  
+          .productDescription {
+              margin: 10px 0 0;
+              font-size: 1em;
+              text-align: justify;
+              word-break: break-word;
+              max-width: 600px;
+              padding-right: 20px;
+          }
 
-    .productImage {
-        width: 25%;
-    }
+          .socialNetworksBlock {
+            height: max-content;
+            margin-top: auto;
+            margin-bottom: 0%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
 
-    .productImage img {
-        height: auto;
-        width: 100%;
-    }
+            .socialNetworksList {
+              width: max-content;
+              list-style: none;
+              display: flex;
+              flex-wrap: wrap;
+              padding: 50px 0px 0px 0px;
+              margin: 0;
 
-    .productInfo {
-        margin-top: 2vw;
-        margin-left: 4vw;
-        display: flex;
-        flex-direction: column;
-        font-family: $secondary-font;
+              .socialNetworkList__item {
 
-    }
-    
-    .price {
-        margin-block-start: 0em;
-        margin-block-end: 0em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-    }
+                a {
+                  width: 40px;
+                  height: 40px;
+                  display: block;
+                }
 
-    .name {
-        font-size: 1.5vw;
-    }
+                &.icon {
+                  width: 40px;
+                  height: 40px;
+                  object-fit: cover;
 
-    .productDescription {
-        margin-top: 1vw;
-        font-size: 1.1vw;
-        font-weight: 400;
-    }
+                  &:hover {
+                    cursor: pointer;
+                  }
+                }              
+              }
+            }
+
+            .makeOrderWhatsApp__router {
+              padding: 10px 15px;
+              border-radius: 10px;
+              border: 1px solid $dark-grey-color;
+              width: max-content;
+              transition: 0.2s all ease-in-out;
+
+              &:hover {
+                transform: scale(1.05);
+              }
+            }
+          }
+      }
+  
+      
+      @media (max-width: 970px) {
+          flex-direction: column;
+
+          .imagesSection {
+            flex: 0 0 100%;
+            max-width: 100%;
+            min-width: 250px !important;
+            height: min-content;
+          }
+  
+          .productInfoSection {
+              flex: 0 0 100%;
+              max-width: 100%;
+              padding: 0px 10px;
+          }
+      }
+    }  
 
     .shareSection {
         margin-top: 5vw;
@@ -409,12 +557,65 @@ main {
 
 }
 
+.mapMenu {
+  width: max-content;
+  height: max-content;
+  position: absolute;
+  bottom: 60px;
+  display: flex;
+  border: 1px solid #000;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #fff;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+
+.mapMenu.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mapMenu a {
+  padding: 8px 20px;
+  text-decoration: none;
+  color: #333;
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.mapMenu a:hover {
+  background-color: #f0f0f0;
+}
+
+.mapMenu a + a {
+  border-left: 1px solid #000; /* Разделительная линия между элементами */
+}
+
+@media (max-width: 800px) {
+  main {
+    padding: 10px;
+  }
+}
+
 footer {
-    margin-top: 5vw;
+    visibility: visible;
+    position: fixed;
+    bottom: 0;
+    padding: 20px;
     width: 100%;
-    height: 10vw;
-    background-color: #FFD700;
+    height: 40px;
+    background-color: $dark-grey-color;
+    color: white;
     font-family: $secondary-font;
+    transition: 0.3s all ease-in-out;
 
     .footerBox {
         display: flex;
@@ -423,15 +624,14 @@ footer {
     .footerInfo {
         display: flex;
         flex-direction: column;
-        margin-left: 5vw;
+        width: calc(100% - 40px);
     }
-
-    .footerNumber {
-        margin-top: 3vw;
-    }
-
-    .footerText {
-        margin-top: 1vw;
-    }
-
 }
+
+@media (max-width: 800px) {
+  footer {
+    visibility: hidden;
+    height: 0px;
+  }
+}
+

@@ -1,23 +1,21 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Антикварная лавка</title>
-        <meta name="description" content="">
+        <title>Результаты поиска</title>
+        <link rel="stylesheet" href="{% static 'css/productsPage/productsPage.css' %}">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <link rel="stylesheet" href="{% static 'css/mainPage/mainPage.css' %}">
         <script type="text/javascript">
-            const openMobileMenuIcon = "{% static '\icons\menuIconLightGrey.png' %}";
-            const closeMobileMenuIcon = "{% static '\icons\closeMobileMenuIcon.png' %}";
+            const openMobileMenuIcon = "{% static '/icons/menuIconLightGrey.png' %}";
+            const closeMobileMenuIcon = "{% static '/icons/closeMobileMenuIcon.png' %}";
             const totalPages = {{ total_pages }};
             let currentPage = {{ page_obj.number }};
         </script>
-        <script src="{% static 'js/mainPage.js' %}"></script>
+        <script src="{% static 'js/productsPage.js' %}"></script>
     </head>
-    <body>  
+    <body>
         <header>
             <div class='topHeaderBlock'>
                 <h1 class='shopTitle'>
@@ -33,12 +31,12 @@
                         </li>
                         <li class='headerTopMenuElement' id='search'>
                             <search>
-                                <form class="searchForm" action="{% url 'search_results' %}">
+                                <form class="searchForm" action="{% url 'search_results' %}" method="get">
                                     <input class="searchBar" type="search" id="products" name="q" placeholder="Поиск" />
                                     <button type="submit" class="searchButton">
                                         <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                                     </button>
-                                </form>
+                                </form>                                
                             </search>   
                         </li>
                     </ul>
@@ -63,7 +61,7 @@
                     <li class='mobileMenuElement' id='contacts'>
                         <a href="{% url 'contact_page' %}">Контакты</a>
                     </li>
-                    <li class='mobileMenuElement' id='phoneNumber'>+7 (777) 000 56 95</li>
+                    <li class='mobileMenuElement' id='phoneNumber'>+7 (702) 444 49 99</li>
                 </ul>
 
                 <!-- Меню категорий для мобильной версии -->
@@ -87,6 +85,7 @@
                 </div>
             </nav>
         </header>
+        <h2 class='searchResultsTitle'>Результаты поиска по запросу: "{{ query }}"</h2>
         <main>
             <nav class="categoryNavSide">
                 <ul class="categoriesMenu">
@@ -104,21 +103,26 @@
                     {% endfor %}
                 </ul>
             </nav>
-            <div class="productsBox">
-            {% for products in products %}
-                <div class="product">
-                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}" class="ProductImg">
-                        <img src="{{ products.images.first.image.url }}" alt="{{ products.name }} Image">
-                    </a>
-                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}" class="productText">
-                        <h3>{{ products.name }}</h3>
-                    </a>
-                    <span>{{ products.price|floatformat:0 }} ТГ</span>
-                </div> 
-            {% endfor %}
-            </div>
+
+            <!-- Сообщение, если товаров не найдено -->
+            {% if no_results %}
+                <h2 class='noSearchResultsMessage'>Ничего не найдено по вашему запросу.</h2>
+            {% else %}
+                <div class="productsBox">
+                    {% for product in products %}
+                        <div class="product">
+                            <a href="{% url 'product_page' category_slug=product.category.slug product_slug=product.slug %}">
+                                <img src="{{ product.images.first.image.url }}" alt="{{ product.name }} Image">
+                                <h3>{{ product.name }}</h3>
+                                <span>{{ product.price|floatformat:0 }} ТГ</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </main>
-        <div class="pagination">
+         <!-- Пагинация -->
+         <div class="pagination">
             <!-- Кнопка "Назад" -->
             <button class="pagination__button" onclick="changePage(currentPage - 1)" aria-label="Назад"
                     {% if not page_obj.has_previous %} disabled {% endif %}>&laquo;</button>
@@ -140,3 +144,4 @@
         </footer>
     </body>
 </html>
+

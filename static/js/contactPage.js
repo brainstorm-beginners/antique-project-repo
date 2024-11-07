@@ -1,3 +1,23 @@
+function checkScrollPosition() {
+  const scrollPosition = window.scrollY + window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+  
+  const footer = document.querySelector('footer');
+  const isLargeScreen = window.innerWidth > 768;
+
+  console.log(scrollPosition, documentHeight)
+
+  if (isLargeScreen || scrollPosition + 1 >= documentHeight) {
+    footer.style.visibility = 'visible';  
+    footer.style.height = '40px';         
+    footer.style.opacity = '1';          
+  } else {
+    footer.style.visibility = 'hidden';   
+    footer.style.height = '0px';         
+    footer.style.opacity = '0';         
+  }
+}
+
 window.addEventListener("DOMContentLoaded", async () => {
   const mobileMenuButton = document.getElementById('mobileMenuButton');
   const mobileMenu = document.querySelector('.mobileMenu');
@@ -5,9 +25,37 @@ window.addEventListener("DOMContentLoaded", async () => {
   const menuIcon = '../static/icons/menuIconLightGrey.png';
   const closeIcon = '../static/icons/closeMobileMenuIcon.png';
 
+  window.addEventListener('scroll', checkScrollPosition);
+  window.addEventListener('resize', checkScrollPosition);
+
   mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
-      mobileMenuButtonIcon.src = mobileMenuButtonIcon.src.includes('menuIconLightGrey.png') ? closeIcon : menuIcon;
+    mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+    mobileMenuButtonIcon.src = mobileMenuButtonIcon.src.includes('menuIconLightGrey.png') ? closeIcon : menuIcon;
+  });
+
+  window.addEventListener("DOMContentLoaded", async () => {
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.querySelector('.mobileMenu');
+    const mobileMenuButtonImg = document.querySelector('.mobileMenuButtonIcon');
+
+    // Получаем значения атрибутов data-* из HTML
+    const openMobileMenuIcon = mobileMenuButtonImg.getAttribute('data-open-icon');
+    const closeMobileMenuIcon = mobileMenuButtonImg.getAttribute('data-close-icon');
+
+    // Изначально устанавливаем иконку как иконку открытого меню
+    mobileMenuButtonImg.src = openMobileMenuIcon;
+
+    mobileMenuButton.addEventListener('click', () => {
+        // Показываем или скрываем меню
+        mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+
+        // Переключаем иконку, исходя из текущего состояния меню
+        if (mobileMenuButtonImg.src.endsWith(openMobileMenuIcon)) {
+            mobileMenuButtonImg.src = closeMobileMenuIcon;
+        } else {
+            mobileMenuButtonImg.src = openMobileMenuIcon;
+        }
+    });
   });
 
   async function initMap() {

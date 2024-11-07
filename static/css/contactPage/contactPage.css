@@ -262,26 +262,29 @@ main .contactaddress {
 }
 
 footer {
-  margin-top: 5vw;
-  width: 100%;
-  background-color: #2e2e2e;
-  font-family: "Montserrat", sans-serif;
+  visibility: visible;
+  position: fixed;
   bottom: 0;
-  position: absolute;
+  padding: 20px;
+  width: 100%;
+  height: 40px;
+  background-color: #2e2e2e;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  transition: 0.3s all ease-in-out;
 }
 footer .footerBox {
   display: flex;
 }
 footer .footerInfo {
-  color: white;
   display: flex;
   flex-direction: column;
-  margin-left: 5vw;
-  gap: 2vw;
+  width: calc(100% - 40px);
 }
-footer .footerNumber {
-  margin-top: 2vw;
-}
-footer .footerText {
-  margin-bottom: 2vw;
+
+@media (max-width: 800px) {
+  footer {
+    visibility: hidden;
+    height: 0px;
+  }
 }/*# sourceMappingURL=contactPage.css.map */

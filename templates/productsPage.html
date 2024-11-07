@@ -7,122 +7,150 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Антикварная лавка</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="{% static 'css/productsPage/productsPage.css' %}">
         <script type="text/javascript">
-            const closeMobileMenuIcon = "{% static 'icons/closeMobileMenuIcon.png' %}";
-            const openMobileMenuIcon = "{% static 'icons/menuIconLightGrey.png' %}";
+            const openMobileMenuIcon = "{% static '/icons/menuIconLightGrey.png' %}";
+            const closeMobileMenuIcon = "{% static '/icons/closeMobileMenuIcon.png' %}";
+            const totalPages = {{ total_pages }};
+            let currentPage = {{ page_obj.number }};
         </script>
         <script src="{% static 'js/productsPage.js' %}"></script>
     </head>
-<body>
-    <header>
-        <div class='topHeaderBlock'>
-            <h1 class='shopTitle'>
-                <a href="{% url 'home' %}">Ретро-лавка</a>
-            </h1>
-            <nav class='headerTopRight'>
-                <ul class='headerTopMenu'>
-                    <li class='headerTopMenuElement' id='contacts'>
-                        <a href="{% url 'contact_page' %}">Контакты</a>
-                    </li>
-                    <li class='headerTopMenuElement' id='phoneNumber'>
-                        +7 (702) 444 49 99
-                    </li>
-                    <li class='headerTopMenuElement' id='search'>
+    <body>
+        <header>
+            <div class='topHeaderBlock'>
+                <h1 class='shopTitle'>
+                    <a href="{% url 'home' %}">Ретро-лавка</a>
+                </h1>    
+                <nav class='headerTopRight'>
+                    <ul class='headerTopMenu'>
+                        <li class='headerTopMenuElement' id='contacts'>
+                            <a href="{% url 'contact_page' %}">Контакты</a>
+                        </li>
+                        <li class='headerTopMenuElement' id='phoneNumber'>
+                            +7 (702) 444 49 99
+                        </li>
+                        <li class='headerTopMenuElement' id='search'>
+                            <search>
+                                <form class="searchForm" action="{% url 'search_results' %}">
+                                    <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
+                                    <button type="submit" class="searchButton">
+                                        <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
+                                    </button>
+                                </form>
+                            </search>    
+                        </li>
+                    </ul>
+                </nav>   
+                <button id="mobileMenuButton" class="mobileMenuButton">
+                    <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" data-open-icon="{% static 'icons/menuIconLightGrey.png' %}" data-close-icon="{% static 'icons/closeMobileMenuIcon.png' %}" />
+                </button>
+            </div>
+            
+            <nav class='mobileMenu' style='display: none;'>
+                <ul class='mobileMenuList'>
+                    <li class='mobileMenuElement' id='search'>
                         <search>
-                            <form class="searchForm" action="./search/">
+                            <form class="searchForm" action="{% url 'search_results' %}">
                                 <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
                                 <button type="submit" class="searchButton">
                                     <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
                                 </button>
                             </form>
-                        </search>   
+                        </search>                            
                     </li>
+                    <li class='mobileMenuElement' id='contacts'>
+                        <a href="{% url 'contact_page' %}">Контакты</a>
+                    </li>
+                    <li class='mobileMenuElement' id='phoneNumber'>+7 (702) 444 49 99</li>
                 </ul>
-            </nav>   
-            <button id="mobileMenuButton" class="mobileMenuButton">
-                <img class="mobileMenuButtonIcon" src="{% static 'icons/menuIconLightGrey.png' %}" alt="Меню" />
-            </button>
-        </div>
-        
-        <nav class='mobileMenu' style='display: none;'>
-            <ul class='mobileMenuList'>
-                <li class='mobileMenuElement' id='search'>
-                    <search>
-                        <form class="searchForm" action="./search/">
-                            <input class="searchBar" type="search" id="product" name="q" placeholder="Поиск" />
-                            <button type="submit" class="searchButton">
-                                <img class="searchIcon" src="{% static 'icons/searchIcon.png' %}" alt="Поиск" />
-                            </button>
-                        </form>
-                    </search>
-                </li>
-                <li class='mobileMenuElement' id='contacts'>Контакты</li>
-                <li class='mobileMenuElement' id='phoneNumber'>+7 (702) 444 49 99</li>
-                <li class='mobileMenuElement' id='about'>О лавке</li>
-            </ul>
 
-            <!-- Меню категорий для мобильной версии -->
-            <div class='mobileCategoryNavSide'>
-                <ul class='mobileCategoriesMenu'>
-                    {% for category in root_categories %}
-                        {% if category.subcategories.exists %}
-                            <li class='mobileCategory__dropdown'>
-                                {{ category.name }}
-                                <ul class='mobileSubcategoriesMenu'>
-                                    {% for subcategory in category.get_subcategories %}
-                                        <li class='mobileSubcategory' data-slug="{{ subcategory.slug }}">{{ subcategory.name }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                        {% else %}
-                            <li class='mobileCategory' data-slug="{{ category.slug }}">{{ category.name }}</li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </nav>
-    </header>
+                <!-- Меню категорий для мобильной версии -->
+                <div class='mobileCategoryNavSide'>
+                    <ul class='mobileCategoriesMenu'>
+                        {% for category in root_categories %}
+                            {% if category.subcategories.exists %}
+                                <li class='mobileCategory__dropdown'>
+                                    {{ category.name }}
+                                    <ul class='mobileSubcategoriesMenu'>
+                                        {% for subcategory in category.get_subcategories %}
+                                            <li class='mobileSubcategory' data-slug="{{ subcategory.slug }}">{{ subcategory.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li class='mobileCategory' data-slug="{{ category.slug }}">{{ category.name }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
         <div class="topMainUrlSort">
-            <span class="topMainText">Главная / Каталог / {{ selected_category.name }}</span>
+            <span class="topMainText">
+                <a href="/home/">Главная&nbsp;</a> / 
+                <a href="/home/category/{{ product.category.slug }}">&nbsp;{{ product.category.name }}</a>{{ selected_category.name }}  
+            </span>
             <span class="topMainSort">
                 <a href="?sort=price_asc" class="{% if sort == 'price_asc' %}active{% endif %}">Сначала дешевле</a>
                 <a href="?sort=price_desc" class="{% if sort == 'price_desc' %}active{% endif %}">Сначала дороже</a>
                 <a href="?sort=date_old" class="{% if sort == 'date_old' %}active{% endif %}">Сначала старые</a>
                 <a href="?sort=date_new" class="{% if sort == 'date_new' %}active{% endif %}">Сначала новые</a>
             </span>
-        </div>
-    <main>
-        <nav class="categoryNavSide">
-            <ul class="categoriesMenu">
-                {% for category in root_categories %}
-                    <li class="category{% if category.subcategories.all %} category__dropdown{% endif %}" data-slug="{{ category.slug }}">
-                        <a href="{% url 'products_page' category.slug %}">{{ category.name }}</a>
-                        {% if category.subcategories.all %}
-                            <ul class="subcategoriesMenu">
-                                {% for subcategory in category.subcategories.all %}
-                                    <li class="subcategory"><a href="{% url 'products_page' subcategory.slug %}">{{ subcategory.name }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
-        </nav>
+        </div> 
+        <main>
+            <nav class="categoryNavSide">
+                <ul class="categoriesMenu">
+                    {% for category in root_categories %}
+                        <li class="category{% if category.subcategories.all %} category__dropdown{% endif %}" data-slug="{{ category.slug }}">
+                            {{ category.name }}
+                            {% if category.subcategories.all %}
+                                <ul class="subcategoriesMenu">
+                                    {% for subcategory in category.subcategories.all %}
+                                        <li class="subcategory" data-slug="{{ subcategory.slug }}">{{ subcategory.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </nav> 
         <div class="productsBox">
-            {% for products in product %}
+            {% for product in products %}
                 <div class="product">
-                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}" class="productImg">
-                        <img src="{{ products.images.first.image.url }}" alt="{{ products.name }} Image">
+                    <a href="{% url 'product_page' category_slug=product.category.slug product_slug=product.slug %}" class="productImg">
+                        <img src="{{ product.images.first.image.url }}" alt="{{ product.name }} Image">
                     </a>
-                    <a href="{% url 'product_page' category_slug=products.category.slug product_slug=products.slug %}" class="productText">
-                        <h3>{{ products.name }}</h3>
+                    <a href="{% url 'product_page' category_slug=product.category.slug product_slug=product.slug %}" class="productText">
+                        <h3>{{ product.name }}</h3>
                     </a>
-                    <span>{{ products.price|floatformat:0}} ТГ</span>
+                    <span>{{ product.price|floatformat:0 }} ТГ</span>
                 </div>
             {% endfor %}
         </div>
-    </main>
-</body>
+        </main>
+        <!-- Пагинация -->
+        <div class="pagination">
+            <!-- Кнопка "Назад" -->
+            <button class="pagination__button" onclick="changePage(currentPage - 1)" aria-label="Назад"
+                    {% if not page_obj.has_previous %} disabled {% endif %}>&laquo;</button>
+    
+            <!-- Номера страниц -->
+            <div class="pagination__pages" id="pagination-pages">
+                <!-- Здесь будут отображаться номера страниц через JS -->
+            </div>
+    
+            <!-- Кнопка "Вперед" -->
+            <button class="pagination__button" onclick="changePage(currentPage + 1)" aria-label="Вперед"
+                    {% if not page_obj.has_next %} disabled {% endif %}>&raquo;</button>
+        </div>
+        <footer>
+            <div class="footerInfo">
+                <span class="footerNumber">+7 702 444 4999</span>
+                <a href="https://2gis.kz/almaty/geo/9430047375043681/76.982054%2C43.334925" class="footerText" alt="Map" data-map='true'>Улица Монтажная, 27</a>
+            </div>
+        </footer>
+    </body>
 </html>

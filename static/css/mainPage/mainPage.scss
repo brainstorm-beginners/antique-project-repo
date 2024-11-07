@@ -259,6 +259,7 @@ header {
           .mobileSubcategoriesMenu {
             height: max-content;
             width: max-content;
+            max-width: 150px;
             display: none;
             align-items: center;
             flex-direction: column;
@@ -478,3 +479,86 @@ main {
   }
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 0px 100px 0px;
+  font-family: Arial, sans-serif;
+  
+  &__button {
+      background-color: #f5f5f5;
+      border: none;
+      padding: 10px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      color: #333;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+          background-color: #ddd;
+      }
+
+      &:disabled {
+          color: #aaa;
+          cursor: not-allowed;
+          background-color: #f5f5f5;
+      }
+  }
+
+  &__pages {
+      display: flex;
+      gap: 5px;
+  }
+
+  &__page {
+      background-color: #f5f5f5;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      color: #333;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+          background-color: #ddd;
+      }
+
+      &.active {
+          background-color: #333;
+          color: #fff;
+          font-weight: bold;
+      }
+  }
+}
+
+footer {
+  visibility: visible;
+  position: fixed;
+  bottom: 0;
+  padding: 20px;
+  width: 100%;
+  height: 40px;
+  background-color: $dark-grey-color;
+  color: white;
+  font-family: $secondary-font;
+  transition: 0.3s all ease-in-out;
+
+  .footerBox {
+      display: flex;
+  }
+
+  .footerInfo {
+      display: flex;
+      flex-direction: column;
+      width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 800px) {
+footer {
+  visibility: hidden;
+  height: 0px;
+}
+}
