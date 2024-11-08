@@ -450,6 +450,9 @@ main .wrapperContainer .productInfoSection .socialNetworksBlock .makeOrderWhatsA
     height: -moz-min-content;
     height: min-content;
   }
+  main .wrapperContainer .productDescription {
+    max-width: 970px !important;
+  }
   main .wrapperContainer .productInfoSection {
     flex: 0 0 100%;
     max-width: 100%;
@@ -494,6 +497,13 @@ main .orderButton {
 }
 main .orderButton:hover {
   color: white;
+}
+
+.productName {
+  font-weight: 500;
+  font-size: 1.4em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .mapMenu {

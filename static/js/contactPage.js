@@ -98,5 +98,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       map.addChild(marker);
   }
 
-  await initMap();
+  window.addEventListener("load", async () => {
+    await initMap();
+  })
+  
 });
