@@ -499,6 +499,10 @@ main {
             min-width: 250px !important;
             height: min-content;
           }
+
+          .productDescription {
+            max-width: 970px !important;
+          }
   
           .productInfoSection {
               flex: 0 0 100%;
@@ -555,6 +559,13 @@ main {
         color: white;
     }
 
+}
+
+.productName {
+  font-weight: 500;
+  font-size: 1.4em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .mapMenu {

@@ -29,7 +29,7 @@ SECRET_KEY = project_config.django_secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.242', 'localhost', '127.0.0.1', 'your-computer-name.local', '*', '192.168.0.135', '172.20.10.2']
+ALLOWED_HOSTS = ['192.168.0.242', 'localhost', '127.0.0.1', 'your-computer-name.local', '*', '192.168.0.135']
 
 
 # Application definition
