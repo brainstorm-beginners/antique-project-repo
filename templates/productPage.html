@@ -109,15 +109,10 @@
                 </div>                
             </div>
             <div class='productInfoSection'>
-                <h1 class='productPrice'>1700KZT</h1>
+                <h1 class='productPrice'>{{ product.price|floatformat:0 }} ТГ</h1>
+                <p class='productName'> {{ product.name }}</p>
                 <p class='productDescription'>
-                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
-                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
-                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
-                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
-                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
-                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
-                    productDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescriptionproductDescription
+                    {{ product.description }}
                 </p>
                 <div class='socialNetworksBlock'>
                     <ul class='socialNetworksList'>
