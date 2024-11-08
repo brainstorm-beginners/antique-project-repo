@@ -1,5 +1,5 @@
-from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Q
+from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -7,7 +7,7 @@ from django.shortcuts import render
 from .models import Category, Product
 
 
-def main_page(request: WSGIRequest) -> render:
+def main_page(request: HttpRequest) -> render:
     categories = Category.objects.filter(parent__isnull=True).prefetch_related('subcategories')
 
     products = Product.objects.order_by('-created_at')
@@ -24,43 +24,39 @@ def main_page(request: WSGIRequest) -> render:
     })
 
 
-def product_page(request: WSGIRequest, product_slug: str, category_slug: str) -> render:
-    product_url = get_object_or_404(Product, slug=product_slug)
+def product_page(request: HttpRequest, product_slug: str, category_slug: str) -> render:
+    product_url = get_object_or_404(Product, slug=product_slug, category__slug=category_slug)
 
     return render(request, 'productPage.html', {'product': product_url})
+
 
 
 def contact_page(request):
     return render(request, 'contactPage.html')
 
 
-def products_page(request: WSGIRequest, category_slug: str) -> render:
+def products_page(request: HttpRequest, category_slug: str) -> render:
     category = get_object_or_404(Category, slug=category_slug)
     products = Product.objects.filter(category=category)
-    categories = Category.objects.filter(parent__isnull=True).prefetch_related('subcategories')
 
+    sort_options = {
+        'price_asc': 'price',
+        'price_desc': '-price',
+        'date_new': '-created_at',
+        'date_old': 'created_at'
+    }
     sort = request.GET.get('sort')
-
-    if sort == 'price_asc':
-        products = products.order_by('price')
-    elif sort == 'price_desc':
-        products = products.order_by('-price')
-    elif sort == 'date_new':
-        products = products.order_by('-created_at')
-    elif sort == 'date_old':
-        products = products.order_by('created_at')
+    products = products.order_by(sort_options.get(sort, '-created_at'))
 
     paginator = Paginator(products, 8)
     page_number = request.GET.get('page', 1)
 
     try:
         page_obj = paginator.get_page(page_number)
-    except PageNotAnInteger:
+    except (PageNotAnInteger, EmptyPage):
         page_obj = paginator.get_page(1)
-    except EmptyPage:
-        page_obj = paginator.get_page(paginator.num_pages)
 
-    no_results = products.count() == 0
+    no_results = not page_obj.object_list.exists()
 
     root_categories = Category.objects.filter(parent__isnull=True).prefetch_related('subcategories')
 
@@ -75,25 +71,26 @@ def products_page(request: WSGIRequest, category_slug: str) -> render:
     })
 
 
-def search_results(request: WSGIRequest) -> render:
-    query = request.GET.get('q', '')
-    categories = Category.objects.filter(parent__isnull=True).prefetch_related('subcategories')
+def search_results(request: HttpRequest) -> render:
+    query = request.GET.get('q', '').strip()
+    root_categories = Category.objects.filter(parent__isnull=True).prefetch_related('subcategories')
 
-    products = Product.objects.filter(
-        Q(name__icontains=query) | Q(description__icontains=query)
-    ).order_by('-created_at')
+    if len(query) >= 2:
+        products = Product.objects.filter(
+            Q(name__iexact=query) | Q(name__icontains=query) | Q(description__icontains=query)
+        ).order_by('-created_at')
+    else:
+        products = Product.objects.none()
 
     paginator = Paginator(products, 8)
     page_number = request.GET.get('page', 1)
 
     try:
         page_obj = paginator.get_page(page_number)
-    except PageNotAnInteger:
+    except (PageNotAnInteger, EmptyPage):
         page_obj = paginator.get_page(1)
-    except EmptyPage:
-        page_obj = paginator.get_page(paginator.num_pages)
 
-    no_results = products.count() == 0
+    no_results = not page_obj.object_list.exists()
 
     return render(request, 'searchResults.html', {
         'products': page_obj.object_list,
@@ -101,5 +98,5 @@ def search_results(request: WSGIRequest) -> render:
         'total_pages': paginator.num_pages,
         'query': query,
         'no_results': no_results,
-        'root_categories': categories
+        'root_categories': root_categories
     })
